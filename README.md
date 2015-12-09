@@ -1,6 +1,8 @@
 # JDYBrowse
 iOS微信图片浏览模仿
 
+![效果图](https://raw.githubusercontent.com/JDY0306/JDYBrowse/master/browse.gif)
+
 #Example
 ```Objective-c
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
