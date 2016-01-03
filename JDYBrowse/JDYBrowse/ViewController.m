@@ -23,9 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    self.view.backgroundColor = [UIColor blueColor];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(10, 30, 100, 50);
+    btn.frame = CGRectMake(10, 70, 100, 50);
     btn.backgroundColor = [UIColor blackColor];
     [btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
     [btn setTitle:@"清空缓存" forState:UIControlStateNormal];
@@ -42,7 +42,6 @@
     _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, btn.jdyBottom + 10, JDY_SCREEN_WIDTH, 300) collectionViewLayout:flowLayout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
-    _collectionView.backgroundColor = [UIColor whiteColor];
     //cell注册
     [_collectionView registerClass:[JDYCollectionViewCell class] forCellWithReuseIdentifier:@"JDYCollectionViewCell"];
     [self.view addSubview:_collectionView];
@@ -80,8 +79,10 @@
         [browseItemArray addObject:browseItem];
     }
     JDYCollectionViewCell *cell = (JDYCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
-    JDYBrowseView *browseView = [[JDYBrowseView alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
-    [self.view addSubview:browseView];
+    JDYBrowseViewController *bvc = [[JDYBrowseViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
+    [self presentViewController:bvc animated:NO completion:^{
+        
+    }];
 }
 
 

@@ -30,14 +30,19 @@
 
 - (void)createCell
 {
-    _zoomScrollView = [[JDYBrowseZoomScrollView alloc]initWithFrame:CGRectMake(0, 0, JDY_SCREEN_WIDTH, JDY_SCREEN_HEIGHT)];
+    _zoomScrollView = [[JDYBrowseZoomScrollView alloc]init];
     [self.contentView addSubview:_zoomScrollView];
+    [_zoomScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.bottom.equalTo(self.contentView).offset(0);
+        make.right.equalTo(self.contentView).offset(-kBrowseSpace);
+    }];
     
-    _loadingView = [[JDYBrowseLoadingView alloc]initWithFrame:CGRectMake((JDY_SCREEN_WIDTH - 30) / 2, (JDY_SCREEN_HEIGHT - 30) / 2, 30, 30)];
-    [self.contentView addSubview:_loadingView];
+    _loadingView = [[JDYBrowseLoadingView alloc]init];
+    [_zoomScrollView addSubview:_loadingView];
+    [_loadingView jdy_centerToSuperViewWithSize:CGSizeMake(30, 30)];
     
     _tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGesture:)];
-    [self.contentView addGestureRecognizer:_tap];
+    [self.contentView addGestureRecognizer:_tap];    
 }
 
 - (void)tapClick:(JDYBrowseCollectionViewCellTapBlock)tapBlock
