@@ -5,10 +5,10 @@ iOS微信图片浏览模仿
 ![效果图横屏](https://raw.githubusercontent.com/JDY0306/JDYBrowse/master/browse2.gif)
 
 # 版本1.1
-1.添加横竖屏(Masonry布局)
-2.修改了图片加载错乱的bug
-3.View改为ViewController控制
-4.关闭图片浏览view的时候，不需要继续执行小图加载大图动画
+1.添加横竖屏(Masonry布局)<br/>
+2.修改了图片加载错乱的bug<br/>
+3.View改为ViewController控制<br/>
+4.关闭图片浏览view的时候，不需要继续执行小图加载大图动画<br/>
 5.修复转换坐标不准确问题
 
 #Example
