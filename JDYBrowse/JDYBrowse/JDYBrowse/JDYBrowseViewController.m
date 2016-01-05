@@ -20,6 +20,7 @@
 @property (nonatomic,assign)BOOL isFirstOpen;
 @property (nonatomic,assign)NSInteger currentIndex;
 @property (nonatomic,assign)BOOL isRotate;// 判断是否正在切换横竖屏
+@property (nonatomic,strong)UILabel *countLabel;// 当前图片位置
 
 @end
 
@@ -36,6 +37,22 @@
     return self;
 }
 
+- (void)showBrowseViewController
+{
+    UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if([[[UIDevice currentDevice]systemVersion]floatValue] >= 8.0)
+    {
+        self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    }
+    else
+    {
+        rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    }
+    [rootViewController presentViewController:self animated:NO completion:^{
+        
+    }];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,6 +67,17 @@
     self.view.backgroundColor = [UIColor clearColor];
     _isFirstOpen = YES;
     [self createCollectionView];
+    
+    _countLabel = [[UILabel alloc]init];
+    _countLabel.textColor = [UIColor whiteColor];
+    _countLabel.text = [NSString stringWithFormat:@"%ld/%ld",_currentIndex + 1,_browseItemArray.count];
+    _countLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:_countLabel];
+    
+    [_countLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view).offset(0);
+        make.height.mas_equalTo(50);
+    }];
 }
 
 - (void)createCollectionView
@@ -170,7 +198,7 @@
             [cell.loadingView stopAnimation];
             if(error)
             {
-                NSLog(@"图片加载失败");
+//                NSLog(@"图片加载失败");
             }
             else
             {
@@ -190,6 +218,7 @@
     if(!_isRotate)
     {
         _currentIndex = scrollView.contentOffset.x / (JDY_SCREEN_WIDTH + kBrowseSpace);
+        _countLabel.text = [NSString stringWithFormat:@"%ld/%ld",_currentIndex + 1,_browseItemArray.count];
     }
     _isRotate = NO;
 }
@@ -209,6 +238,9 @@
     {
         [cell.loadingView stopAnimation];
     }
+    [_countLabel removeFromSuperview];
+    _countLabel = nil;
+    
     NSIndexPath *indexPath = [_collectionView indexPathForCell:browseCell];
     browseCell.zoomScrollView.zoomScale = 1.0f;
     JDYBrowseModel *browseItem = _browseItemArray[indexPath.row];
@@ -233,6 +265,7 @@
 - (void)statusBarOrientationDidChange:(NSNotification *)notification
 {
     _isRotate = YES;
+    [_collectionView reloadData];// 此行代码为了去除UICollectionViewFlowLayout警告
     [_collectionView layoutIfNeeded];
     _collectionView.contentOffset = CGPointMake(_currentIndex * (JDY_SCREEN_WIDTH + kBrowseSpace), 0);
     [_collectionView reloadData];

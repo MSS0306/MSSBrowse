@@ -23,7 +23,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.view.backgroundColor = [UIColor blueColor];
+    
+    self.view.backgroundColor = [UIColor orangeColor];
+    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(10, 70, 100, 50);
     btn.backgroundColor = [UIColor blackColor];
@@ -39,12 +41,18 @@
     flowLayout.itemSize = CGSizeMake(80, 80);
     flowLayout.minimumLineSpacing = 10;
     
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, btn.jdyBottom + 10, JDY_SCREEN_WIDTH, 300) collectionViewLayout:flowLayout];
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flowLayout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
+    _collectionView.backgroundColor = [UIColor clearColor];
     //cell注册
     [_collectionView registerClass:[JDYCollectionViewCell class] forCellWithReuseIdentifier:@"JDYCollectionViewCell"];
     [self.view addSubview:_collectionView];
+    
+    [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view).offset(0);
+        make.top.equalTo(self.view).offset(130);
+    }];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -80,9 +88,7 @@
     }
     JDYCollectionViewCell *cell = (JDYCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
     JDYBrowseViewController *bvc = [[JDYBrowseViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
-    [self presentViewController:bvc animated:NO completion:^{
-        
-    }];
+    [bvc showBrowseViewController];
 }
 
 

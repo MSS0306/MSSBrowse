@@ -51,7 +51,6 @@
 		40CEC5391C1332030060A54D /* UIView+JDYLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CEC5381C1332030060A54D /* UIView+JDYLayout.m */; };
 		40CF35EF1C2AE5E300095CC1 /* JDYBrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CF35EE1C2AE5E300095CC1 /* JDYBrowseViewController.m */; };
 		40D2A65B1C3827BA0088A7DD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D2A65A1C3827BA0088A7DD /* ViewController.m */; };
-		40D43CD01C3907D400C69D42 /* UINavigationController+JDYShouldAutorotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D43CCF1C3907D400C69D42 /* UINavigationController+JDYShouldAutorotate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,8 +144,6 @@
 		40CF35ED1C2AE5E300095CC1 /* JDYBrowseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDYBrowseViewController.h; sourceTree = "<group>"; };
 		40CF35EE1C2AE5E300095CC1 /* JDYBrowseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDYBrowseViewController.m; sourceTree = "<group>"; };
 		40D2A65A1C3827BA0088A7DD /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		40D43CCE1C3907D400C69D42 /* UINavigationController+JDYShouldAutorotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+JDYShouldAutorotate.h"; sourceTree = "<group>"; };
-		40D43CCF1C3907D400C69D42 /* UINavigationController+JDYShouldAutorotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+JDYShouldAutorotate.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,8 +218,6 @@
 				40D2A65A1C3827BA0088A7DD /* ViewController.m */,
 				40CEA2CE1C148A23007EC251 /* JDYCollectionViewCell.h */,
 				40CEA2CF1C148A23007EC251 /* JDYCollectionViewCell.m */,
-				40D43CCE1C3907D400C69D42 /* UINavigationController+JDYShouldAutorotate.h */,
-				40D43CCF1C3907D400C69D42 /* UINavigationController+JDYShouldAutorotate.m */,
 				40CEC4E71C131D560060A54D /* Main.storyboard */,
 				40CEC4EA1C131D560060A54D /* Assets.xcassets */,
 				40CEC4EC1C131D560060A54D /* LaunchScreen.storyboard */,
@@ -382,7 +377,6 @@
 				40CEC52B1C1330F60060A54D /* SDWebImageDecoder.m in Sources */,
 				40CEC52E1C1330F60060A54D /* SDWebImageManager.m in Sources */,
 				40CEC5281C1330F60060A54D /* NSData+ImageContentType.m in Sources */,
-				40D43CD01C3907D400C69D42 /* UINavigationController+JDYShouldAutorotate.m in Sources */,
 				40CEC52A1C1330F60060A54D /* SDWebImageCompat.m in Sources */,
 				40CEC5361C1330F60060A54D /* UIView+WebCacheOperation.m in Sources */,
 				40CEC5331C1330F60060A54D /* UIImage+WebP.m in Sources */,
