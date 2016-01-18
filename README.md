@@ -2,7 +2,11 @@
 iOS微信图片浏览模仿
 
 ![效果图竖屏](https://raw.githubusercontent.com/JDY0306/JDYBrowse/master/browse1.gif)
-![效果图横屏](https://raw.githubusercontent.com/JDY0306/JDYBrowse/master/browse2.gif)
+
+# 版本1.2
+1.适配iOS7横屏显示错乱的问题
+2.随主流应用，只有浏览图片页才可以横屏
+3.解决加载本地图片第一次会闪一下的bug
 
 # 版本1.1
 1.添加横竖屏(Masonry布局)<br/>
