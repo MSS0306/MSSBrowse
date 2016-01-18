@@ -11,6 +11,6 @@
 @interface UIImage (JDYScale)
 
 // 得到图像显示完整后的宽度和高度
-- (CGSize)jdy_getSizeAfterFit;
+- (CGSize)jdy_getSizeAfterFitWithWidth:(CGFloat)width height:(CGFloat)height;
 
 @end

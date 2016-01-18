@@ -7,7 +7,26 @@
 //
 
 #import "UINavigationController+JDYRotateControl.h"
+#import "JDYBrowseViewController.h"
 
 @implementation UINavigationController (JDYRotateControl)
+
+- (BOOL)shouldAutorotate
+{
+    if([self.presentedViewController isKindOfClass:[JDYBrowseViewController class]])
+    {
+        return YES;
+    }
+    return NO;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    if([self.presentedViewController isKindOfClass:[JDYBrowseViewController class]])
+    {
+        return UIInterfaceOrientationMaskAll;
+    }
+    return UIInterfaceOrientationMaskPortrait;
+}
 
 @end

@@ -11,7 +11,7 @@
 #import "UIImageView+WebCache.h"
 #import "JDYCollectionViewCell.h"
 
-@interface ViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface ViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UIViewControllerTransitioningDelegate>
 
 @property (nonatomic,strong)UICollectionView *collectionView;
 @property (nonatomic,strong)NSArray *smallUrlArray;
@@ -88,7 +88,7 @@
     }
     JDYCollectionViewCell *cell = (JDYCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
     JDYBrowseViewController *bvc = [[JDYBrowseViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
-    [bvc showBrowseViewController];
+    [bvc showBrowseViewController];  
 }
 
 

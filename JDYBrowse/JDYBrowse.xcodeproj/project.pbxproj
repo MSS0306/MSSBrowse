@@ -25,9 +25,7 @@
 		40CEA2D01C148A23007EC251 /* JDYCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CEA2CF1C148A23007EC251 /* JDYCollectionViewCell.m */; };
 		40CEC4E01C131D560060A54D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CEC4DF1C131D560060A54D /* main.m */; };
 		40CEC4E31C131D560060A54D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CEC4E21C131D560060A54D /* AppDelegate.m */; };
-		40CEC4E91C131D560060A54D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40CEC4E71C131D560060A54D /* Main.storyboard */; };
 		40CEC4EB1C131D560060A54D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40CEC4EA1C131D560060A54D /* Assets.xcassets */; };
-		40CEC4EE1C131D560060A54D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40CEC4EC1C131D560060A54D /* LaunchScreen.storyboard */; };
 		40CEC4F81C1325A40060A54D /* JDYBrowseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CEC4F71C1325A40060A54D /* JDYBrowseModel.m */; };
 		40CEC4FB1C1326050060A54D /* JDYBrowseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CEC4FA1C1326050060A54D /* JDYBrowseCollectionViewCell.m */; };
 		40CEC5011C1326930060A54D /* JDYBrowseZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CEC5001C1326930060A54D /* JDYBrowseZoomScrollView.m */; };
@@ -51,6 +49,8 @@
 		40CEC5391C1332030060A54D /* UIView+JDYLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CEC5381C1332030060A54D /* UIView+JDYLayout.m */; };
 		40CF35EF1C2AE5E300095CC1 /* JDYBrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CF35EE1C2AE5E300095CC1 /* JDYBrowseViewController.m */; };
 		40D2A65B1C3827BA0088A7DD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D2A65A1C3827BA0088A7DD /* ViewController.m */; };
+		40D3C2791C4B7409000CDC3F /* JDYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3C2781C4B7409000CDC3F /* JDYNavigationController.m */; };
+		40D4C4961C4D3163007579BE /* UINavigationController+JDYRotateControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D4C4951C4D3163007579BE /* UINavigationController+JDYRotateControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,9 +94,7 @@
 		40CEC4E11C131D560060A54D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		40CEC4E21C131D560060A54D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		40CEC4E41C131D560060A54D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		40CEC4E81C131D560060A54D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		40CEC4EA1C131D560060A54D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		40CEC4ED1C131D560060A54D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		40CEC4EF1C131D560060A54D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40CEC4F61C1325A40060A54D /* JDYBrowseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDYBrowseModel.h; sourceTree = "<group>"; };
 		40CEC4F71C1325A40060A54D /* JDYBrowseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDYBrowseModel.m; sourceTree = "<group>"; };
@@ -144,6 +142,10 @@
 		40CF35ED1C2AE5E300095CC1 /* JDYBrowseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDYBrowseViewController.h; sourceTree = "<group>"; };
 		40CF35EE1C2AE5E300095CC1 /* JDYBrowseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDYBrowseViewController.m; sourceTree = "<group>"; };
 		40D2A65A1C3827BA0088A7DD /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		40D3C2771C4B7409000CDC3F /* JDYNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDYNavigationController.h; sourceTree = "<group>"; };
+		40D3C2781C4B7409000CDC3F /* JDYNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDYNavigationController.m; sourceTree = "<group>"; };
+		40D4C4941C4D3163007579BE /* UINavigationController+JDYRotateControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+JDYRotateControl.h"; sourceTree = "<group>"; };
+		40D4C4951C4D3163007579BE /* UINavigationController+JDYRotateControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+JDYRotateControl.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,11 +220,11 @@
 				40D2A65A1C3827BA0088A7DD /* ViewController.m */,
 				40CEA2CE1C148A23007EC251 /* JDYCollectionViewCell.h */,
 				40CEA2CF1C148A23007EC251 /* JDYCollectionViewCell.m */,
-				40CEC4E71C131D560060A54D /* Main.storyboard */,
 				40CEC4EA1C131D560060A54D /* Assets.xcassets */,
-				40CEC4EC1C131D560060A54D /* LaunchScreen.storyboard */,
 				40CEC4EF1C131D560060A54D /* Info.plist */,
 				40CEC4DE1C131D560060A54D /* Supporting Files */,
+				40D3C2771C4B7409000CDC3F /* JDYNavigationController.h */,
+				40D3C2781C4B7409000CDC3F /* JDYNavigationController.m */,
 			);
 			path = JDYBrowse;
 			sourceTree = "<group>";
@@ -255,6 +257,8 @@
 				40CEC5031C1326AC0060A54D /* JDYBrowseLoadingView.m */,
 				40CEA2C91C146DA2007EC251 /* UIImage+JDYScale.h */,
 				40CEA2CA1C146DA2007EC251 /* UIImage+JDYScale.m */,
+				40D4C4941C4D3163007579BE /* UINavigationController+JDYRotateControl.h */,
+				40D4C4951C4D3163007579BE /* UINavigationController+JDYRotateControl.m */,
 				40CE399C1C15C223008D3B9A /* jdy_browseLoading@2x.png */,
 				40CE399D1C15C223008D3B9A /* jdy_browseLoading@3x.png */,
 			);
@@ -332,6 +336,7 @@
 				TargetAttributes = {
 					40CEC4DA1C131D560060A54D = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = Q6L8ALP6SS;
 					};
 				};
 			};
@@ -358,11 +363,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40CEC4EE1C131D560060A54D /* LaunchScreen.storyboard in Resources */,
 				40CEC4EB1C131D560060A54D /* Assets.xcassets in Resources */,
 				4088D5BF1C269B9A0027C19D /* Info.plist in Resources */,
 				40CE399F1C15C223008D3B9A /* jdy_browseLoading@3x.png in Resources */,
-				40CEC4E91C131D560060A54D /* Main.storyboard in Resources */,
 				40CE399E1C15C223008D3B9A /* jdy_browseLoading@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,6 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40D4C4961C4D3163007579BE /* UINavigationController+JDYRotateControl.m in Sources */,
 				40CEC52B1C1330F60060A54D /* SDWebImageDecoder.m in Sources */,
 				40CEC52E1C1330F60060A54D /* SDWebImageManager.m in Sources */,
 				40CEC5281C1330F60060A54D /* NSData+ImageContentType.m in Sources */,
@@ -389,6 +393,7 @@
 				4088D5C61C269B9A0027C19D /* NSArray+MASAdditions.m in Sources */,
 				4088D5C51C269B9A0027C19D /* MASViewConstraint.m in Sources */,
 				40CEA2D01C148A23007EC251 /* JDYCollectionViewCell.m in Sources */,
+				40D3C2791C4B7409000CDC3F /* JDYNavigationController.m in Sources */,
 				40CF35EF1C2AE5E300095CC1 /* JDYBrowseViewController.m in Sources */,
 				40CEC4F81C1325A40060A54D /* JDYBrowseModel.m in Sources */,
 				40CEC5301C1330F60060A54D /* UIButton+WebCache.m in Sources */,
@@ -417,25 +422,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		40CEC4E71C131D560060A54D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				40CEC4E81C131D560060A54D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		40CEC4EC1C131D560060A54D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				40CEC4ED1C131D560060A54D /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		40CEC4F01C131D560060A54D /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -454,7 +440,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuwei870306@163.com (T466WXSGEY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuwei870306@163.com (T466WXSGEY)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -498,7 +485,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuwei870306@163.com (T466WXSGEY)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuwei870306@163.com (T466WXSGEY)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -523,12 +511,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = JDYBrowse/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.platomix.JDYBrowse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jdy.JDYBrowse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -536,12 +528,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = JDYBrowse/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.platomix.JDYBrowse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jdy.JDYBrowse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -21,6 +21,9 @@
 @property (nonatomic,assign)NSInteger currentIndex;
 @property (nonatomic,assign)BOOL isRotate;// 判断是否正在切换横竖屏
 @property (nonatomic,strong)UILabel *countLabel;// 当前图片位置
+@property (nonatomic,assign)CGFloat screenWidth;
+@property (nonatomic,assign)CGFloat screenHeight;
+@property (nonatomic,strong)UIView *snapshotView;
 
 @end
 
@@ -40,14 +43,7 @@
 - (void)showBrowseViewController
 {
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    if([[[UIDevice currentDevice]systemVersion]floatValue] >= 8.0)
-    {
-        self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    }
-    else
-    {
-        rootViewController.modalPresentationStyle = UIModalPresentationCurrentContext;
-    }
+    _snapshotView = [rootViewController.view snapshotViewAfterScreenUpdates:NO];
     [rootViewController presentViewController:self animated:NO completion:^{
         
     }];
@@ -56,21 +52,41 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initData];
     [self createBrowseView];
+}
+
+- (void)initData
+{
+    // 状态栏方向改变通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusBarOrientationDidChange:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    _isFirstOpen = YES;
+    
+    [self setScreenWidthAndScreenHeight];
+}
+
+- (void)setScreenWidthAndScreenHeight
+{
+    _screenWidth = JDY_SCREEN_WIDTH;
+    _screenHeight = JDY_SCREEN_HEIGHT;
+    if([UIDevice currentDevice].orientation != UIDeviceOrientationPortrait && [[[UIDevice currentDevice]systemVersion]floatValue] < 8.0)
+    {
+        if(JDY_SCREEN_WIDTH < JDY_SCREEN_HEIGHT)
+        {
+            _screenWidth = JDY_SCREEN_HEIGHT;
+            _screenHeight = JDY_SCREEN_WIDTH;
+        }
+    }
 }
 
 - (void)createBrowseView
 {
-    // 电池条方向改变通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusBarOrientationDidChange:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
-    
-    self.view.backgroundColor = [UIColor clearColor];
-    _isFirstOpen = YES;
+    _snapshotView.hidden = YES;
+    [self.view addSubview:_snapshotView];
     [self createCollectionView];
-    
     _countLabel = [[UILabel alloc]init];
     _countLabel.textColor = [UIColor whiteColor];
-    _countLabel.text = [NSString stringWithFormat:@"%ld/%ld",_currentIndex + 1,_browseItemArray.count];
+    _countLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)_currentIndex + 1,(long)_browseItemArray.count];
     _countLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_countLabel];
     
@@ -105,7 +121,7 @@
         make.right.equalTo(self.view).offset(kBrowseSpace);
     }];
     [_collectionView layoutIfNeeded];
-    _collectionView.contentOffset = CGPointMake(_currentIndex * (JDY_SCREEN_WIDTH + kBrowseSpace), 0);
+    _collectionView.contentOffset = CGPointMake(_currentIndex * (_screenWidth + kBrowseSpace), 0);
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
 }
@@ -123,7 +139,7 @@
         // 还原初始缩放比例
         cell.zoomScrollView.zoomScale = 1.0f;
         // 将scrollview的contentSize还原成缩放前
-        cell.zoomScrollView.contentSize = CGSizeMake(JDY_SCREEN_WIDTH, JDY_SCREEN_HEIGHT);
+        cell.zoomScrollView.contentSize = CGSizeMake(_screenWidth, _screenHeight);
         cell.zoomScrollView.zoomImageView.contentMode = browseItem.smallImageView.contentMode;
         cell.zoomScrollView.zoomImageView.clipsToBounds = browseItem.smallImageView.clipsToBounds;
         // 判断大图是否存在
@@ -138,7 +154,6 @@
             // 加载大图
             [self loadBigImage:cell.zoomScrollView.zoomImageView browseItem:browseItem cell:cell];
         }
-        
         __weak __typeof(self)weakSelf = self;
         [cell tapClick:^(JDYBrowseCollectionViewCell *browseCell) {
             [weakSelf tap:browseCell];
@@ -154,28 +169,30 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(JDY_SCREEN_WIDTH + kBrowseSpace, JDY_SCREEN_HEIGHT);
+    return CGSizeMake(_screenWidth + kBrowseSpace, _screenHeight);
 }
 
 - (void)showBigImage:(UIImageView *)imageView browseItem:(JDYBrowseModel *)browseItem
 {
+    // 取消当前请求防止复用问题
+    [imageView sd_cancelCurrentImageLoad];
     // 如果存在直接显示
-    [imageView sd_setImageWithURL:[NSURL URLWithString:browseItem.bigImageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        CGSize size = [image jdy_getSizeAfterFit];
-        // 第一次打开浏览页需要加载动画
-        if(_isFirstOpen)
-        {
-            _isFirstOpen = NO;
-            imageView.frame = [self getFrameInWindow:browseItem.smallImageView];
-            [UIView animateWithDuration:0.5 animations:^{
-                imageView.frame = CGRectMake((JDY_SCREEN_WIDTH - size.width) / 2, (JDY_SCREEN_HEIGHT - size.height) / 2, size.width, size.height);
-            }];
-        }
-        else
-        {
-            imageView.frame = CGRectMake((JDY_SCREEN_WIDTH - size.width) / 2, (JDY_SCREEN_HEIGHT - size.height) / 2, size.width, size.height);
-        }
-    }];
+    UIImage *image = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:browseItem.bigImageUrl];
+    imageView.image = image;
+    CGSize size = [image jdy_getSizeAfterFitWithWidth:_screenWidth height:_screenHeight];
+    // 第一次打开浏览页需要加载动画
+    if(_isFirstOpen)
+    {
+        _isFirstOpen = NO;
+        imageView.frame = [self getFrameInWindow:browseItem.smallImageView];
+        [UIView animateWithDuration:0.5 animations:^{
+            imageView.frame = CGRectMake((_screenWidth - size.width) / 2, (_screenHeight - size.height) / 2, size.width, size.height);
+        }];
+    }
+    else
+    {
+        imageView.frame = CGRectMake((_screenWidth - size.width) / 2, (_screenHeight - size.height) / 2, size.width, size.height);
+    }
 }
 
 // 加载大图
@@ -184,8 +201,8 @@
     // 加载圆圈显示
     [cell.loadingView startAnimation];
     // 默认为屏幕中间
-    imageView.frame = CGRectMake((self.view.jdyWidth - browseItem.smallImageView.jdyWidth) / 2, (self.view.jdyHeight - browseItem.smallImageView.jdyHeight) / 2, browseItem.smallImageView.jdyWidth, browseItem.smallImageView.jdyHeight);
-
+    imageView.frame = CGRectMake((_screenWidth - browseItem.smallImageView.jdyWidth) / 2, (_screenHeight - browseItem.smallImageView.jdyHeight) / 2, browseItem.smallImageView.jdyWidth, browseItem.smallImageView.jdyHeight);
+    
     [imageView sd_setImageWithURL:[NSURL URLWithString:browseItem.bigImageUrl] placeholderImage:browseItem.smallImageView.image options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
         // 此处可做图片加载进度
         
@@ -198,14 +215,14 @@
             [cell.loadingView stopAnimation];
             if(error)
             {
-//                NSLog(@"图片加载失败");
+                //                NSLog(@"图片加载失败");
             }
             else
             {
-                CGSize size = [image jdy_getSizeAfterFit];
+                CGSize size = [image jdy_getSizeAfterFitWithWidth:_screenWidth height:_screenHeight];
                 // 图片加载成功
                 [UIView animateWithDuration:0.5 animations:^{
-                    cell.zoomScrollView.zoomImageView.frame = CGRectMake((JDY_SCREEN_WIDTH - size.width) / 2, (JDY_SCREEN_HEIGHT - size.height) / 2, size.width, size.height);
+                    cell.zoomScrollView.zoomImageView.frame = CGRectMake((_screenWidth - size.width) / 2, (_screenHeight - size.height) / 2, size.width, size.height);
                 }];
             }
         }
@@ -217,17 +234,15 @@
 {
     if(!_isRotate)
     {
-        _currentIndex = scrollView.contentOffset.x / (JDY_SCREEN_WIDTH + kBrowseSpace);
-        _countLabel.text = [NSString stringWithFormat:@"%ld/%ld",_currentIndex + 1,_browseItemArray.count];
+        _currentIndex = scrollView.contentOffset.x / (_screenWidth + kBrowseSpace);
+        _countLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)_currentIndex + 1,(long)_browseItemArray.count];
     }
     _isRotate = NO;
 }
 
 - (void)tap:(JDYBrowseCollectionViewCell *)browseCell
 {
-//    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    // 点击时移除通知，避免多执行一次通知方法
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    _snapshotView.hidden = NO;
     // 集合视图背景色设置为透明
     _collectionView.backgroundColor = [UIColor clearColor];
     // 动画结束前不可点击透明背景后的内容
@@ -244,6 +259,15 @@
     NSIndexPath *indexPath = [_collectionView indexPathForCell:browseCell];
     browseCell.zoomScrollView.zoomScale = 1.0f;
     JDYBrowseModel *browseItem = _browseItemArray[indexPath.row];
+    
+    // 旋转屏幕到竖屏
+    if([UIDevice currentDevice].orientation != UIDeviceOrientationPortrait)
+    {
+        [[UIDevice currentDevice]setValue:[NSNumber numberWithInteger:UIDeviceOrientationPortrait] forKey:@"orientation"];
+    }
+    // 移除通知
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    
     CGRect rect = [self getFrameInWindow:browseItem.smallImageView];
     [UIView animateWithDuration:0.5 animations:^{
         browseCell.zoomScrollView.zoomImageView.frame = rect;
@@ -264,21 +288,14 @@
 #pragma mark Orientation Method
 - (void)statusBarOrientationDidChange:(NSNotification *)notification
 {
+    [self setScreenWidthAndScreenHeight];
     _isRotate = YES;
-    [_collectionView reloadData];// 此行代码为了去除UICollectionViewFlowLayout警告
+    if(_collectionView.userInteractionEnabled)
+    {
+        [_collectionView.collectionViewLayout invalidateLayout];// 此行代码为了去除UICollectionViewFlowLayout警告
+    }
     [_collectionView layoutIfNeeded];
-    _collectionView.contentOffset = CGPointMake(_currentIndex * (JDY_SCREEN_WIDTH + kBrowseSpace), 0);
+    _collectionView.contentOffset = CGPointMake(_currentIndex * (_screenWidth + kBrowseSpace), 0);
     [_collectionView reloadData];
 }
-
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskAll;
-}
-
 @end

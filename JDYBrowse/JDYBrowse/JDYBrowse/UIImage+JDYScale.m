@@ -11,11 +11,11 @@
 @implementation UIImage (JDYScale)
 
 // 得到图像显示完整后的宽度和高度
-- (CGSize)jdy_getSizeAfterFit
+- (CGSize)jdy_getSizeAfterFitWithWidth:(CGFloat)width height:(CGFloat)height
 {
     CGSize size;
-    CGFloat widthRatio = [UIScreen mainScreen].bounds.size.width / self.size.width;
-    CGFloat heightRatio = [UIScreen mainScreen].bounds.size.height / self.size.height;
+    CGFloat widthRatio = width / self.size.width;
+    CGFloat heightRatio = height / self.size.height;
     CGFloat scale = MIN(widthRatio, heightRatio);
     size.width = scale * self.size.width;
     size.height = scale * self.size.height;
