@@ -4,7 +4,7 @@ A simple iOS photo browse like wechat 微信图片浏览
 ![效果图竖屏](https://raw.githubusercontent.com/JDY0306/JDYBrowse/master/browse1.gif)
 
 #联系
-iOS开发技术开发交流群:529043462
+iOS开发技术交流群:529043462
 
 # 说明
 原来1.2版本用Autolayout实现横竖屏遇上了种种问题（其中调用旋转屏幕的私有API存在风险）<br/>
