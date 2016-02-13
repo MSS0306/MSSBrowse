@@ -1,7 +1,19 @@
 # JDYBrowse
-iOS微信图片浏览模仿
+A simple iOS photo browse like wechat 微信图片浏览
 
 ![效果图竖屏](https://raw.githubusercontent.com/JDY0306/JDYBrowse/master/browse1.gif)
+
+#联系
+iOS开发技术开发交流群:529043462
+
+# 说明
+原来1.2版本用Autolayout实现横竖屏遇上了种种问题（其中调用旋转屏幕的私有API存在风险）<br/>
+为了更好的支持主流应用的需求,改成了用view的transform实现浏览页面的横屏,并对部分代码进行了优化<br/>
+原来1.2版本旧代码单独存放了一个文件夹,其实已经没有用了
+
+# 版本2.0
+1.放弃Autolayout,利用view的transform支持单个浏览页的横屏<br/>
+2.双击图片放大缩小添加<br/>
 
 # 版本1.2
 1.适配iOS7横屏显示错乱的问题<br/>
@@ -35,5 +47,3 @@ JDYBrowseViewController *bvc = [[JDYBrowseViewController alloc]initWithBrowseIte
 [bvc showBrowseViewController];
 }
 ```
-#联系
-248394787@qq.com
