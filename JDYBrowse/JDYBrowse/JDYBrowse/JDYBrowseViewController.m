@@ -24,6 +24,10 @@
 @property (nonatomic,assign)CGFloat screenWidth;
 @property (nonatomic,assign)CGFloat screenHeight;
 @property (nonatomic,strong)UIView *snapshotView;
+@property (nonatomic,strong)NSMutableArray *verticalBigRectArray;
+@property (nonatomic,strong)NSMutableArray *horizontalBigRectArray;
+@property (nonatomic,strong)UIView *bgView;
+@property (nonatomic,assign)UIDeviceOrientation currentOrientation;
 
 @end
 
@@ -58,46 +62,42 @@
 
 - (void)initData
 {
-    // 状态栏方向改变通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusBarOrientationDidChange:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     _isFirstOpen = YES;
-    
-    [self setScreenWidthAndScreenHeight];
-}
-
-- (void)setScreenWidthAndScreenHeight
-{
     _screenWidth = JDY_SCREEN_WIDTH;
     _screenHeight = JDY_SCREEN_HEIGHT;
-    if([UIDevice currentDevice].orientation != UIDeviceOrientationPortrait && [[[UIDevice currentDevice]systemVersion]floatValue] < 8.0)
+    _currentOrientation = UIDeviceOrientationPortrait;
+    _verticalBigRectArray = [[NSMutableArray alloc]init];
+    _horizontalBigRectArray = [[NSMutableArray alloc]init];
+    for (JDYBrowseModel *browseItem in _browseItemArray)
     {
-        if(JDY_SCREEN_WIDTH < JDY_SCREEN_HEIGHT)
-        {
-            _screenWidth = JDY_SCREEN_HEIGHT;
-            _screenHeight = JDY_SCREEN_WIDTH;
-        }
+        CGRect verticalRect = [browseItem.smallImageView.image jdy_getBigImageRectSizeWithScreenWidth:JDY_SCREEN_WIDTH screenHeight:JDY_SCREEN_HEIGHT];
+        NSValue *verticalValue = [NSValue valueWithCGRect:verticalRect];
+        [_verticalBigRectArray addObject:verticalValue];
+        
+        CGRect horizontalRect = [browseItem.smallImageView.image jdy_getBigImageRectSizeWithScreenWidth:JDY_SCREEN_HEIGHT screenHeight:JDY_SCREEN_WIDTH];
+        NSValue *horizontalValue = [NSValue valueWithCGRect:horizontalRect];
+        [_horizontalBigRectArray addObject:horizontalValue];
     }
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+// 获取指定视图在window中的位置
+- (CGRect)getFrameInWindow:(UIView *)view
+{
+    // 改用[UIApplication sharedApplication].keyWindow.rootViewController.view，防止present新viewController坐标转换不准问题
+    return [view.superview convertRect:view.frame toView:[UIApplication sharedApplication].keyWindow.rootViewController.view];
 }
 
 - (void)createBrowseView
 {
+    self.view.backgroundColor = [UIColor blackColor];
     _snapshotView.hidden = YES;
     [self.view addSubview:_snapshotView];
-    [self createCollectionView];
-    _countLabel = [[UILabel alloc]init];
-    _countLabel.textColor = [UIColor whiteColor];
-    _countLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)_currentIndex + 1,(long)_browseItemArray.count];
-    _countLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:_countLabel];
     
-    [_countLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view).offset(0);
-        make.height.mas_equalTo(50);
-    }];
-}
-
-- (void)createCollectionView
-{
+    _bgView = [[UIView alloc]initWithFrame:self.view.bounds];
+    _bgView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:_bgView];
+    
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.minimumLineSpacing = 0;
     // 布局方式改为从上至下，默认从左到右
@@ -109,27 +109,29 @@
     // 每行的间距
     flowLayout.minimumLineSpacing = 0;
     
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, _screenWidth + kBrowseSpace, _screenHeight) collectionViewLayout:flowLayout];
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
     _collectionView.pagingEnabled = YES;
     _collectionView.bounces = NO;
     _collectionView.backgroundColor = [UIColor blackColor];
-    [_collectionView registerClass:[JDYBrowseCollectionViewCell class] forCellWithReuseIdentifier:@"Browser_Cell"];
-    [self.view addSubview:_collectionView];
-    
-    [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.view).offset(0);
-        make.right.equalTo(self.view).offset(kBrowseSpace);
-    }];
-    [_collectionView layoutIfNeeded];
+    [_collectionView registerClass:[JDYBrowseCollectionViewCell class] forCellWithReuseIdentifier:@"JDYBrowserCell"];
     _collectionView.contentOffset = CGPointMake(_currentIndex * (_screenWidth + kBrowseSpace), 0);
-    _collectionView.delegate = self;
-    _collectionView.dataSource = self;
+    [_bgView addSubview:_collectionView];
+    
+    _countLabel = [[UILabel alloc]init];
+    _countLabel.textColor = [UIColor whiteColor];
+    _countLabel.frame = CGRectMake(0, _screenHeight - 50, _screenWidth, 50);
+    _countLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)_currentIndex + 1,(long)_browseItemArray.count];
+    _countLabel.textAlignment = NSTextAlignmentCenter;
+    [_bgView addSubview:_countLabel];
 }
+
 
 #pragma mark UIColectionViewDelegate
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    JDYBrowseCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Browser_Cell" forIndexPath:indexPath];
+    JDYBrowseCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"JDYBrowserCell" forIndexPath:indexPath];
     if(cell)
     {
         // 停止加载
@@ -137,22 +139,30 @@
         
         JDYBrowseModel *browseItem = [_browseItemArray objectAtIndex:indexPath.row];
         // 还原初始缩放比例
+        cell.zoomScrollView.frame = CGRectMake(0, 0, _screenWidth, _screenHeight);
         cell.zoomScrollView.zoomScale = 1.0f;
         // 将scrollview的contentSize还原成缩放前
         cell.zoomScrollView.contentSize = CGSizeMake(_screenWidth, _screenHeight);
         cell.zoomScrollView.zoomImageView.contentMode = browseItem.smallImageView.contentMode;
         cell.zoomScrollView.zoomImageView.clipsToBounds = browseItem.smallImageView.clipsToBounds;
+        [cell.loadingView jdy_centerToSuperViewWithSize:CGSizeMake(30, 30)];
+        CGRect bigImageRect = [_verticalBigRectArray[indexPath.row] CGRectValue];
+        if(_currentOrientation != UIDeviceOrientationPortrait)
+        {
+            bigImageRect = [_horizontalBigRectArray[indexPath.row] CGRectValue];
+        }
         // 判断大图是否存在
         if([[SDImageCache sharedImageCache]diskImageExistsWithKey:browseItem.bigImageUrl])
         {
             // 显示大图
-            [self showBigImage:cell.zoomScrollView.zoomImageView browseItem:browseItem];
+            [self showBigImage:cell.zoomScrollView.zoomImageView browseItem:browseItem rect:bigImageRect];
         }
         // 如果大图不存在
         else
         {
+            _isFirstOpen = NO;
             // 加载大图
-            [self loadBigImage:cell.zoomScrollView.zoomImageView browseItem:browseItem cell:cell];
+            [self loadBigImageWithBrowseItem:browseItem cell:cell rect:bigImageRect];
         }
         __weak __typeof(self)weakSelf = self;
         [cell tapClick:^(JDYBrowseCollectionViewCell *browseCell) {
@@ -172,42 +182,36 @@
     return CGSizeMake(_screenWidth + kBrowseSpace, _screenHeight);
 }
 
-- (void)showBigImage:(UIImageView *)imageView browseItem:(JDYBrowseModel *)browseItem
+- (void)showBigImage:(UIImageView *)imageView browseItem:(JDYBrowseModel *)browseItem rect:(CGRect)rect
 {
     // 取消当前请求防止复用问题
     [imageView sd_cancelCurrentImageLoad];
-    // 如果存在直接显示
-    UIImage *image = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:browseItem.bigImageUrl];
-    imageView.image = image;
-    CGSize size = [image jdy_getSizeAfterFitWithWidth:_screenWidth height:_screenHeight];
+    // 如果存在直接显示图片
+    imageView.image = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:browseItem.bigImageUrl];
     // 第一次打开浏览页需要加载动画
     if(_isFirstOpen)
     {
         _isFirstOpen = NO;
         imageView.frame = [self getFrameInWindow:browseItem.smallImageView];
         [UIView animateWithDuration:0.5 animations:^{
-            imageView.frame = CGRectMake((_screenWidth - size.width) / 2, (_screenHeight - size.height) / 2, size.width, size.height);
+            imageView.frame = rect;
         }];
     }
     else
     {
-        imageView.frame = CGRectMake((_screenWidth - size.width) / 2, (_screenHeight - size.height) / 2, size.width, size.height);
+        imageView.frame = rect;
     }
 }
 
 // 加载大图
-- (void)loadBigImage:(UIImageView *)imageView browseItem:(JDYBrowseModel *)browseItem cell:(JDYBrowseCollectionViewCell *)cell
+- (void)loadBigImageWithBrowseItem:(JDYBrowseModel *)browseItem cell:(JDYBrowseCollectionViewCell *)cell rect:(CGRect)rect
 {
+    UIImageView *imageView = cell.zoomScrollView.zoomImageView;
     // 加载圆圈显示
     [cell.loadingView startAnimation];
     // 默认为屏幕中间
-    imageView.frame = CGRectMake((_screenWidth - browseItem.smallImageView.jdyWidth) / 2, (_screenHeight - browseItem.smallImageView.jdyHeight) / 2, browseItem.smallImageView.jdyWidth, browseItem.smallImageView.jdyHeight);
-    
-    [imageView sd_setImageWithURL:[NSURL URLWithString:browseItem.bigImageUrl] placeholderImage:browseItem.smallImageView.image options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-        // 此处可做图片加载进度
-        
-    } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
+    [imageView jdy_setFrameInSuperViewCenterWithSize:CGSizeMake(browseItem.smallImageView.jdyWidth, browseItem.smallImageView.jdyHeight)];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:browseItem.bigImageUrl] placeholderImage:browseItem.smallImageView.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         // 关闭图片浏览view的时候，不需要继续执行小图加载大图动画
         if(_collectionView.userInteractionEnabled)
         {
@@ -215,14 +219,13 @@
             [cell.loadingView stopAnimation];
             if(error)
             {
-                //                NSLog(@"图片加载失败");
+//                NSLog(@"图片加载失败");
             }
             else
             {
-                CGSize size = [image jdy_getSizeAfterFitWithWidth:_screenWidth height:_screenHeight];
                 // 图片加载成功
                 [UIView animateWithDuration:0.5 animations:^{
-                    cell.zoomScrollView.zoomImageView.frame = CGRectMake((_screenWidth - size.width) / 2, (_screenHeight - size.height) / 2, size.width, size.height);
+                    imageView.frame = rect;
                 }];
             }
         }
@@ -240,13 +243,18 @@
     _isRotate = NO;
 }
 
+#pragma mark Tap Method
 - (void)tap:(JDYBrowseCollectionViewCell *)browseCell
 {
+    // 移除通知
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
     _snapshotView.hidden = NO;
     // 集合视图背景色设置为透明
     _collectionView.backgroundColor = [UIColor clearColor];
     // 动画结束前不可点击透明背景后的内容
     _collectionView.userInteractionEnabled = NO;
+    // 显示状态栏
+    [self setNeedsStatusBarAppearanceUpdate];
     // 停止加载
     NSArray *cellArray = _collectionView.visibleCells;
     for (JDYBrowseCollectionViewCell *cell in cellArray)
@@ -259,17 +267,20 @@
     NSIndexPath *indexPath = [_collectionView indexPathForCell:browseCell];
     browseCell.zoomScrollView.zoomScale = 1.0f;
     JDYBrowseModel *browseItem = _browseItemArray[indexPath.row];
-    
-    // 旋转屏幕到竖屏
-    if([UIDevice currentDevice].orientation != UIDeviceOrientationPortrait)
-    {
-        [[UIDevice currentDevice]setValue:[NSNumber numberWithInteger:UIDeviceOrientationPortrait] forKey:@"orientation"];
-    }
-    // 移除通知
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
-    
     CGRect rect = [self getFrameInWindow:browseItem.smallImageView];
+    CGAffineTransform transform = CGAffineTransformMakeRotation(0);
+    if(_currentOrientation == UIDeviceOrientationLandscapeLeft)
+    {
+        transform = CGAffineTransformMakeRotation(- M_PI / 2);
+        rect = CGRectMake(rect.origin.y, JDY_SCREEN_WIDTH - rect.size.width - rect.origin.x, rect.size.height, rect.size.width);
+    }
+    else if(_currentOrientation == UIDeviceOrientationLandscapeRight)
+    {
+        transform = CGAffineTransformMakeRotation(M_PI / 2);
+        rect = CGRectMake(JDY_SCREEN_HEIGHT - rect.size.height - rect.origin.y, rect.origin.x, rect.size.height, rect.size.width);
+    }
     [UIView animateWithDuration:0.5 animations:^{
+        browseCell.zoomScrollView.zoomImageView.transform = transform;
         browseCell.zoomScrollView.zoomImageView.frame = rect;
     } completion:^(BOOL finished) {
         [self dismissViewControllerAnimated:NO completion:^{
@@ -278,24 +289,56 @@
     }];
 }
 
-// 获取指定视图在window中的位置
-- (CGRect)getFrameInWindow:(UIView *)view
+- (BOOL)prefersStatusBarHidden
 {
-    // 改用[UIApplication sharedApplication].keyWindow.rootViewController.view，防止present新viewController坐标转换不准问题
-    return [view.superview convertRect:view.frame toView:[UIApplication sharedApplication].keyWindow.rootViewController.view];
+    if(!_collectionView.userInteractionEnabled)
+    {
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark Orientation Method
-- (void)statusBarOrientationDidChange:(NSNotification *)notification
+- (void)deviceOrientationDidChange:(NSNotification *)notification
 {
-    [self setScreenWidthAndScreenHeight];
-    _isRotate = YES;
-    if(_collectionView.userInteractionEnabled)
+    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+    if(orientation == UIDeviceOrientationPortrait || orientation == UIDeviceOrientationLandscapeLeft || orientation == UIDeviceOrientationLandscapeRight)
     {
-        [_collectionView.collectionViewLayout invalidateLayout];// 此行代码为了去除UICollectionViewFlowLayout警告
+        _isRotate = YES;
+        _currentOrientation = orientation;
+        if(_currentOrientation == UIDeviceOrientationPortrait)
+        {
+            _screenWidth = JDY_SCREEN_WIDTH;
+            _screenHeight = JDY_SCREEN_HEIGHT;
+            [UIView animateWithDuration:0.5 animations:^{
+                _bgView.transform = CGAffineTransformMakeRotation(0);
+            }];
+        }
+        else
+        {
+            _screenWidth = JDY_SCREEN_HEIGHT;
+            _screenHeight = JDY_SCREEN_WIDTH;
+            if(_currentOrientation == UIDeviceOrientationLandscapeLeft)
+            {
+                [UIView animateWithDuration:0.5 animations:^{
+                    _bgView.transform = CGAffineTransformMakeRotation(M_PI / 2);
+                }];
+            }
+            else
+            {
+                [UIView animateWithDuration:0.5 animations:^{
+                    _bgView.transform = CGAffineTransformMakeRotation(- M_PI / 2);
+                }];
+            }
+        }
+        _bgView.frame = CGRectMake(0, 0, JDY_SCREEN_WIDTH, JDY_SCREEN_HEIGHT);
+        _countLabel.frame = CGRectMake(0, _screenHeight - 50, _screenWidth, 50);
+        [_collectionView.collectionViewLayout invalidateLayout];
+        _collectionView.frame = CGRectMake(0, 0, _screenWidth + kBrowseSpace, _screenHeight);
+        _collectionView.contentOffset = CGPointMake((_screenWidth + kBrowseSpace) * _currentIndex, 0);
+        [_collectionView reloadData];
     }
-    [_collectionView layoutIfNeeded];
-    _collectionView.contentOffset = CGPointMake(_currentIndex * (_screenWidth + kBrowseSpace), 0);
-    [_collectionView reloadData];
 }
+
+
 @end

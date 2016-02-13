@@ -86,7 +86,7 @@
         browseItem.smallImageView = imageView;// 小图
         [browseItemArray addObject:browseItem];
     }
-    JDYCollectionViewCell *cell = (JDYCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+    JDYCollectionViewCell *cell = (JDYCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];    
     JDYBrowseViewController *bvc = [[JDYBrowseViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
     [bvc showBrowseViewController];  
 }

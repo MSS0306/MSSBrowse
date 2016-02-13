@@ -22,5 +22,6 @@
 - (void)setJdyWidth:(CGFloat)jdyWidth;
 - (void)setJdyHeight:(CGFloat)jdyHeight;
 
+- (void)jdy_setFrameInSuperViewCenterWithSize:(CGSize)size;
 
 @end

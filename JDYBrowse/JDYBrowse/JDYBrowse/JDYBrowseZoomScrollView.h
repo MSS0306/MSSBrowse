@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^JDYBrowseZoomScrollViewTapBlock)(void);
+
 @interface JDYBrowseZoomScrollView : UIScrollView<UIScrollViewDelegate>
 
 @property (nonatomic,strong)UIImageView *zoomImageView;
+
+- (void)tapClick:(JDYBrowseZoomScrollViewTapBlock)tapBlock;
 
 @end

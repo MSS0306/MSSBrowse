@@ -11,15 +11,14 @@
 @implementation UIImage (JDYScale)
 
 // 得到图像显示完整后的宽度和高度
-- (CGSize)jdy_getSizeAfterFitWithWidth:(CGFloat)width height:(CGFloat)height
+- (CGRect)jdy_getBigImageRectSizeWithScreenWidth:(CGFloat)screenWidth screenHeight:(CGFloat)screenHeight
 {
-    CGSize size;
-    CGFloat widthRatio = width / self.size.width;
-    CGFloat heightRatio = height / self.size.height;
+    CGFloat widthRatio = screenWidth / self.size.width;
+    CGFloat heightRatio = screenHeight / self.size.height;
     CGFloat scale = MIN(widthRatio, heightRatio);
-    size.width = scale * self.size.width;
-    size.height = scale * self.size.height;
-    return size;
+    CGFloat width = scale * self.size.width;
+    CGFloat height = scale * self.size.height;
+    return CGRectMake((screenWidth - width) / 2, (screenHeight - height) / 2, width, height);
 }
 
 @end

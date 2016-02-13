@@ -68,4 +68,9 @@
     self.frame = rect;
 }
 
+- (void)jdy_setFrameInSuperViewCenterWithSize:(CGSize)size
+{
+    self.frame = CGRectMake((self.superview.jdyWidth - size.width) / 2, (self.superview.jdyHeight - size.height) / 2, size.width, size.height);
+}
+
 @end
