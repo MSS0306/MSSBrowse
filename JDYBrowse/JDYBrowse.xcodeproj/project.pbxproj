@@ -52,6 +52,9 @@
 		40CEC5361C1330F60060A54D /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CEC5261C1330F60060A54D /* UIView+WebCacheOperation.m */; };
 		40CEC5391C1332030060A54D /* UIView+JDYLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CEC5381C1332030060A54D /* UIView+JDYLayout.m */; };
 		40CF35EF1C2AE5E300095CC1 /* JDYBrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40CF35EE1C2AE5E300095CC1 /* JDYBrowseViewController.m */; };
+		40D2879B1C70C77100319B1B /* JDYBrowseActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D287961C70C77100319B1B /* JDYBrowseActionSheet.m */; };
+		40D2879C1C70C77100319B1B /* JDYBrowseActionSheetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D287981C70C77100319B1B /* JDYBrowseActionSheetCell.m */; };
+		40D2879D1C70C77100319B1B /* JDYBrowseRemindView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D2879A1C70C77100319B1B /* JDYBrowseRemindView.m */; };
 		40D2A65B1C3827BA0088A7DD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D2A65A1C3827BA0088A7DD /* ViewController.m */; };
 		40D3C2791C4B7409000CDC3F /* JDYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3C2781C4B7409000CDC3F /* JDYNavigationController.m */; };
 /* End PBXBuildFile section */
@@ -152,6 +155,12 @@
 		40CEC5381C1332030060A54D /* UIView+JDYLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JDYLayout.m"; sourceTree = "<group>"; };
 		40CF35ED1C2AE5E300095CC1 /* JDYBrowseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDYBrowseViewController.h; sourceTree = "<group>"; };
 		40CF35EE1C2AE5E300095CC1 /* JDYBrowseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDYBrowseViewController.m; sourceTree = "<group>"; };
+		40D287951C70C77100319B1B /* JDYBrowseActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDYBrowseActionSheet.h; sourceTree = "<group>"; };
+		40D287961C70C77100319B1B /* JDYBrowseActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDYBrowseActionSheet.m; sourceTree = "<group>"; };
+		40D287971C70C77100319B1B /* JDYBrowseActionSheetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDYBrowseActionSheetCell.h; sourceTree = "<group>"; };
+		40D287981C70C77100319B1B /* JDYBrowseActionSheetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDYBrowseActionSheetCell.m; sourceTree = "<group>"; };
+		40D287991C70C77100319B1B /* JDYBrowseRemindView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDYBrowseRemindView.h; sourceTree = "<group>"; };
+		40D2879A1C70C77100319B1B /* JDYBrowseRemindView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDYBrowseRemindView.m; sourceTree = "<group>"; };
 		40D2A65A1C3827BA0088A7DD /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		40D3C2771C4B7409000CDC3F /* JDYNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDYNavigationController.h; sourceTree = "<group>"; };
 		40D3C2781C4B7409000CDC3F /* JDYNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDYNavigationController.m; sourceTree = "<group>"; };
@@ -282,6 +291,12 @@
 				40CEC5031C1326AC0060A54D /* JDYBrowseLoadingView.m */,
 				40CEA2C91C146DA2007EC251 /* UIImage+JDYScale.h */,
 				40CEA2CA1C146DA2007EC251 /* UIImage+JDYScale.m */,
+				40D287951C70C77100319B1B /* JDYBrowseActionSheet.h */,
+				40D287961C70C77100319B1B /* JDYBrowseActionSheet.m */,
+				40D287971C70C77100319B1B /* JDYBrowseActionSheetCell.h */,
+				40D287981C70C77100319B1B /* JDYBrowseActionSheetCell.m */,
+				40D287991C70C77100319B1B /* JDYBrowseRemindView.h */,
+				40D2879A1C70C77100319B1B /* JDYBrowseRemindView.m */,
 				40CE399C1C15C223008D3B9A /* jdy_browseLoading@2x.png */,
 				40CE399D1C15C223008D3B9A /* jdy_browseLoading@3x.png */,
 			);
@@ -405,6 +420,7 @@
 				40CEC5281C1330F60060A54D /* NSData+ImageContentType.m in Sources */,
 				404DFCAD1C6594BF00BBFD28 /* NSArray+MASAdditions.m in Sources */,
 				40CEC52A1C1330F60060A54D /* SDWebImageCompat.m in Sources */,
+				40D2879D1C70C77100319B1B /* JDYBrowseRemindView.m in Sources */,
 				40CEC5361C1330F60060A54D /* UIView+WebCacheOperation.m in Sources */,
 				404DFCBF1C6596D200BBFD28 /* JDYBrowseCollectionViewCellOld.m in Sources */,
 				40CEC5331C1330F60060A54D /* UIImage+WebP.m in Sources */,
@@ -413,6 +429,7 @@
 				40D2A65B1C3827BA0088A7DD /* ViewController.m in Sources */,
 				40CEA2CB1C146DA2007EC251 /* UIImage+JDYScale.m in Sources */,
 				40CEC5391C1332030060A54D /* UIView+JDYLayout.m in Sources */,
+				40D2879B1C70C77100319B1B /* JDYBrowseActionSheet.m in Sources */,
 				40CEC5341C1330F60060A54D /* UIImageView+HighlightedWebCache.m in Sources */,
 				40CEA2D01C148A23007EC251 /* JDYCollectionViewCell.m in Sources */,
 				40D3C2791C4B7409000CDC3F /* JDYNavigationController.m in Sources */,
@@ -443,6 +460,7 @@
 				40CEC52C1C1330F60060A54D /* SDWebImageDownloader.m in Sources */,
 				40CEC5351C1330F60060A54D /* UIImageView+WebCache.m in Sources */,
 				40CEC5271C1330F60060A54D /* MKAnnotationView+WebCache.m in Sources */,
+				40D2879C1C70C77100319B1B /* JDYBrowseActionSheetCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

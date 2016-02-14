@@ -12,6 +12,8 @@
 #import "SDImageCache.h"
 #import "UIImage+JDYScale.h"
 #import "JDYBrowseDefine.h"
+#import "JDYBrowseRemindView.h"
+#import "JDYBrowseActionSheet.h"
 
 @interface JDYBrowseViewController ()
 
@@ -28,12 +30,14 @@
 @property (nonatomic,strong)NSMutableArray *horizontalBigRectArray;
 @property (nonatomic,strong)UIView *bgView;
 @property (nonatomic,assign)UIDeviceOrientation currentOrientation;
+@property (nonatomic,strong)JDYBrowseActionSheet *browseActionSheet;
+@property (nonatomic,strong)JDYBrowseRemindView *browseRemindView;
 
 @end
 
 @implementation JDYBrowseViewController
 
-- (id)initWithBrowseItemArray:(NSArray *)browseItemArray currentIndex:(NSInteger)currentIndex
+- (instancetype)initWithBrowseItemArray:(NSArray *)browseItemArray currentIndex:(NSInteger)currentIndex
 {
     self = [super init];
     if(self)
@@ -125,6 +129,9 @@
     _countLabel.text = [NSString stringWithFormat:@"%ld/%ld",(long)_currentIndex + 1,(long)_browseItemArray.count];
     _countLabel.textAlignment = NSTextAlignmentCenter;
     [_bgView addSubview:_countLabel];
+    
+    _browseRemindView = [[JDYBrowseRemindView alloc]initWithFrame:_bgView.bounds];
+    [_bgView addSubview:_browseRemindView];
 }
 
 
@@ -167,6 +174,12 @@
         __weak __typeof(self)weakSelf = self;
         [cell tapClick:^(JDYBrowseCollectionViewCell *browseCell) {
             [weakSelf tap:browseCell];
+        }];
+        [cell longPress:^(JDYBrowseCollectionViewCell *browseCell) {
+            if([[SDImageCache sharedImageCache]diskImageExistsWithKey:browseItem.bigImageUrl])
+            {
+                [weakSelf longPress:browseCell];
+            }
         }];
     }
     return cell;
@@ -219,7 +232,7 @@
             [cell.loadingView stopAnimation];
             if(error)
             {
-//                NSLog(@"图片加载失败");
+                [self showBrowseRemindViewWithText:@"图片加载失败"];
             }
             else
             {
@@ -289,6 +302,18 @@
     }];
 }
 
+- (void)longPress:(JDYBrowseCollectionViewCell *)browseCell
+{
+    [_browseActionSheet removeFromSuperview];
+    _browseActionSheet = nil;
+    __weak __typeof(self)weakSelf = self;
+    _browseActionSheet = [[JDYBrowseActionSheet alloc]initWithTitleArray:@[@"保存图片",@"复制图片地址"] cancelButtonTitle:@"取消" didSelectedBlock:^(NSInteger index) {
+        [weakSelf browseActionSheetDidSelectedAtIndex:index currentCell:browseCell];
+    }];
+    [_browseActionSheet showInView:_bgView];
+}
+
+#pragma mark StatusBar Method
 - (BOOL)prefersStatusBarHidden
 {
     if(!_collectionView.userInteractionEnabled)
@@ -332,6 +357,11 @@
             }
         }
         _bgView.frame = CGRectMake(0, 0, JDY_SCREEN_WIDTH, JDY_SCREEN_HEIGHT);
+        _browseRemindView.frame = CGRectMake(0, 0, _screenWidth, _screenHeight);
+        if(_browseActionSheet)
+        {
+            [_browseActionSheet updateFrame];
+        }
         _countLabel.frame = CGRectMake(0, _screenHeight - 50, _screenWidth, 50);
         [_collectionView.collectionViewLayout invalidateLayout];
         _collectionView.frame = CGRectMake(0, 0, _screenWidth + kBrowseSpace, _screenHeight);
@@ -340,5 +370,49 @@
     }
 }
 
+#pragma mark JDYActionSheetClick
+- (void)browseActionSheetDidSelectedAtIndex:(NSInteger)index currentCell:(JDYBrowseCollectionViewCell *)currentCell
+{    // 保存图片
+    if(index == 0)
+    {
+        UIImageWriteToSavedPhotosAlbum(currentCell.zoomScrollView.zoomImageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }
+    // 复制图片地址
+    else if(index == 1)
+    {
+        JDYBrowseModel *currentBwowseItem = _browseItemArray[_currentIndex];
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = currentBwowseItem.bigImageUrl;
+        [self showBrowseRemindViewWithText:@"复制图片地址成功"];
+    }
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    NSString *text = nil;
+    if(error)
+    {
+        text = @"保存图片失败";
+    }
+    else
+    {
+        text = @"保存图片成功";
+    }
+    [self showBrowseRemindViewWithText:text];
+}
+
+#pragma mark RemindView Method
+- (void)showBrowseRemindViewWithText:(NSString *)text
+{
+    [_browseRemindView showRemindViewWithText:text];
+    _bgView.userInteractionEnabled = NO;
+    [self performSelector:@selector(hideRemindView) withObject:nil afterDelay:0.7];
+}
+
+- (void)hideRemindView
+{
+    [_browseRemindView hideRemindView];
+    _bgView.userInteractionEnabled = YES;
+}
 
 @end

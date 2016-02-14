@@ -13,6 +13,7 @@
 @class JDYBrowseCollectionViewCell;
 
 typedef void(^JDYBrowseCollectionViewCellTapBlock)(JDYBrowseCollectionViewCell *browseCell);
+typedef void(^JDYBrowseCollectionViewCellLongPressBlock)(JDYBrowseCollectionViewCell *browseCell);
 
 @interface JDYBrowseCollectionViewCell : UICollectionViewCell
 
@@ -20,5 +21,6 @@ typedef void(^JDYBrowseCollectionViewCellTapBlock)(JDYBrowseCollectionViewCell *
 @property (nonatomic,strong)JDYBrowseLoadingView *loadingView; // 加载视图
 
 - (void)tapClick:(JDYBrowseCollectionViewCellTapBlock)tapBlock;
+- (void)longPress:(JDYBrowseCollectionViewCellLongPressBlock)longPressBlock;
 
 @end

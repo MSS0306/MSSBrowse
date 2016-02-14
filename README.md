@@ -14,6 +14,8 @@ iOS开发技术交流群:529043462
 # 版本2.0
 1.放弃Autolayout,利用view的transform支持单个浏览页的横屏<br/>
 2.双击图片放大缩小添加<br/>
+3.长按手势弹框保存图片
+4.部分代码优化
 
 # 版本1.2
 1.适配iOS7横屏显示错乱的问题<br/>
@@ -31,7 +33,16 @@ iOS开发技术交流群:529043462
 ```Objective-c
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-NSArray *bigUrlArray = @[@"http://7xjtvh.com1.z0.glb.clouddn.com/browse01.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse02.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse03.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse04.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse05.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse06.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse07.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse08.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse09.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse03.jpg"];
+NSArray *bigUrlArray = @[@"http://7xjtvh.com1.z0.glb.clouddn.com/browse01.jpg",
+@"http://7xjtvh.com1.z0.glb.clouddn.com/browse02.jpg",
+@"http://7xjtvh.com1.z0.glb.clouddn.com/browse03.jpg",
+@"http://7xjtvh.com1.z0.glb.clouddn.com/browse04.jpg",
+@"http://7xjtvh.com1.z0.glb.clouddn.com/browse05.jpg",
+@"http://7xjtvh.com1.z0.glb.clouddn.com/browse06.jpg",
+@"http://7xjtvh.com1.z0.glb.clouddn.com/browse07.jpg",
+@"http://7xjtvh.com1.z0.glb.clouddn.com/browse08.jpg",
+@"http://7xjtvh.com1.z0.glb.clouddn.com/browse09.jpg",
+@"http://7xjtvh.com1.z0.glb.clouddn.com/browse03.jpg"];
 NSMutableArray *browseItemArray = [[NSMutableArray alloc]init];
 int i = 0;
 for(i = 0;i < [_smallUrlArray count];i++)

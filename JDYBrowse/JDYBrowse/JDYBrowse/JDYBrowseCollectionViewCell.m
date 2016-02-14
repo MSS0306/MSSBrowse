@@ -12,6 +12,7 @@
 @interface JDYBrowseCollectionViewCell ()
 
 @property (nonatomic,copy)JDYBrowseCollectionViewCellTapBlock tapBlock;
+@property (nonatomic,copy)JDYBrowseCollectionViewCellLongPressBlock longPressBlock;
 
 @end
 
@@ -38,11 +39,30 @@
     
     _loadingView = [[JDYBrowseLoadingView alloc]init];
     [_zoomScrollView addSubview:_loadingView];
+    
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressGesture:)];
+    [self.contentView addGestureRecognizer:longPressGesture];
 }
 
 - (void)tapClick:(JDYBrowseCollectionViewCellTapBlock)tapBlock
 {
     _tapBlock = tapBlock;
+}
+
+- (void)longPress:(JDYBrowseCollectionViewCellLongPressBlock)longPressBlock
+{
+    _longPressBlock = longPressBlock;
+}
+
+- (void)longPressGesture:(UILongPressGestureRecognizer *)gesture
+{
+    if(_longPressBlock)
+    {
+        if(gesture.state == UIGestureRecognizerStateBegan)
+        {
+            _longPressBlock(self);
+        }
+    }
 }
 
 @end

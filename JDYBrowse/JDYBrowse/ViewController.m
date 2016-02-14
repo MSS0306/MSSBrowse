@@ -33,7 +33,15 @@
     [btn setTitle:@"清空缓存" forState:UIControlStateNormal];
     [self.view addSubview:btn];
     
-    _smallUrlArray = @[@"http://7xjtvh.com1.z0.glb.clouddn.com/browse01_s.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse02_s.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse03_s.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse04_s.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse05_s.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse06_s.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse07_s.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse08_s.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse09_s.jpg"];
+    _smallUrlArray = @[@"http://7xjtvh.com1.z0.glb.clouddn.com/browse01_s.jpg",
+                       @"http://7xjtvh.com1.z0.glb.clouddn.com/browse02_s.jpg",
+                       @"http://7xjtvh.com1.z0.glb.clouddn.com/browse03_s.jpg",
+                       @"http://7xjtvh.com1.z0.glb.clouddn.com/browse04_s.jpg",
+                       @"http://7xjtvh.com1.z0.glb.clouddn.com/browse05_s.jpg",
+                       @"http://7xjtvh.com1.z0.glb.clouddn.com/browse06_s.jpg",
+                       @"http://7xjtvh.com1.z0.glb.clouddn.com/browse07_s.jpg",
+                       @"http://7xjtvh.com1.z0.glb.clouddn.com/browse08_s.jpg",
+                       @"http://7xjtvh.com1.z0.glb.clouddn.com/browse09_s.jpg"];
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.minimumLineSpacing = 0;
@@ -75,7 +83,16 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *bigUrlArray = @[@"http://7xjtvh.com1.z0.glb.clouddn.com/browse01.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse02.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse03.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse04.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse05.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse06.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse07.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse08.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse09.jpg",@"http://7xjtvh.com1.z0.glb.clouddn.com/browse03.jpg"];
+    NSArray *bigUrlArray = @[@"http://7xjtvh.com1.z0.glb.clouddn.com/browse01.jpg",
+                             @"http://7xjtvh.com1.z0.glb.clouddn.com/browse02.jpg",
+                             @"http://7xjtvh.com1.z0.glb.clouddn.com/browse03.jpg",
+                             @"http://7xjtvh.com1.z0.glb.clouddn.com/browse04.jpg",
+                             @"http://7xjtvh.com1.z0.glb.clouddn.com/browse05.jpg",
+                             @"http://7xjtvh.com1.z0.glb.clouddn.com/browse06.jpg",
+                             @"http://7xjtvh.com1.z0.glb.clouddn.com/browse07.jpg",
+                             @"http://7xjtvh.com1.z0.glb.clouddn.com/browse08.jpg",
+                             @"http://7xjtvh.com1.z0.glb.clouddn.com/browse09.jpg",
+                             @"http://7xjtvh.com1.z0.glb.clouddn.com/browse03.jpg"];
     NSMutableArray *browseItemArray = [[NSMutableArray alloc]init];
     int i = 0;
     for(i = 0;i < [_smallUrlArray count];i++)
@@ -86,9 +103,9 @@
         browseItem.smallImageView = imageView;// 小图
         [browseItemArray addObject:browseItem];
     }
-    JDYCollectionViewCell *cell = (JDYCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];    
+    JDYCollectionViewCell *cell = (JDYCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
     JDYBrowseViewController *bvc = [[JDYBrowseViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
-    [bvc showBrowseViewController];  
+    [bvc showBrowseViewController];
 }
 
 
