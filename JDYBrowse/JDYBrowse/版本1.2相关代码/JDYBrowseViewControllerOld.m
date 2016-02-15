@@ -156,7 +156,8 @@
         }
         __weak __typeof(self)weakSelf = self;
         [cell tapClick:^(JDYBrowseCollectionViewCellOld *browseCell) {
-            [weakSelf tap:browseCell];
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
+            [strongSelf tap:browseCell];
         }];
     }
     return cell;

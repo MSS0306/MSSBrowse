@@ -41,8 +41,7 @@ NSArray *bigUrlArray = @[@"http://7xjtvh.com1.z0.glb.clouddn.com/browse01.jpg",
 @"http://7xjtvh.com1.z0.glb.clouddn.com/browse06.jpg",
 @"http://7xjtvh.com1.z0.glb.clouddn.com/browse07.jpg",
 @"http://7xjtvh.com1.z0.glb.clouddn.com/browse08.jpg",
-@"http://7xjtvh.com1.z0.glb.clouddn.com/browse09.jpg",
-@"http://7xjtvh.com1.z0.glb.clouddn.com/browse03.jpg"];
+@"http://7xjtvh.com1.z0.glb.clouddn.com/browse09.jpg"];
 NSMutableArray *browseItemArray = [[NSMutableArray alloc]init];
 int i = 0;
 for(i = 0;i < [_smallUrlArray count];i++)

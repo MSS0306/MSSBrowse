@@ -33,7 +33,8 @@
     _zoomScrollView = [[JDYBrowseZoomScrollView alloc]init];
     __weak __typeof(self)weakSelf = self;
     [_zoomScrollView tapClick:^{
-        weakSelf.tapBlock(weakSelf);
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        strongSelf.tapBlock(strongSelf);
     }];
     [self.contentView addSubview:_zoomScrollView];
     

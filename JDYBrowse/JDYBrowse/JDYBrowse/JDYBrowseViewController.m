@@ -51,7 +51,14 @@
 - (void)showBrowseViewController
 {
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    _snapshotView = [rootViewController.view snapshotViewAfterScreenUpdates:NO];
+    if([[[UIDevice currentDevice]systemVersion]floatValue] >= 8.0)
+    {
+        self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    }
+    else
+    {
+        _snapshotView = [rootViewController.view snapshotViewAfterScreenUpdates:NO];
+    }
     [rootViewController presentViewController:self animated:NO completion:^{
         
     }];
@@ -95,8 +102,11 @@
 - (void)createBrowseView
 {
     self.view.backgroundColor = [UIColor blackColor];
-    _snapshotView.hidden = YES;
-    [self.view addSubview:_snapshotView];
+    if(_snapshotView)
+    {
+        _snapshotView.hidden = YES;
+        [self.view addSubview:_snapshotView];
+    }
     
     _bgView = [[UIView alloc]initWithFrame:self.view.bounds];
     _bgView.backgroundColor = [UIColor clearColor];
@@ -173,12 +183,14 @@
         }
         __weak __typeof(self)weakSelf = self;
         [cell tapClick:^(JDYBrowseCollectionViewCell *browseCell) {
-            [weakSelf tap:browseCell];
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
+            [strongSelf tap:browseCell];
         }];
         [cell longPress:^(JDYBrowseCollectionViewCell *browseCell) {
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
             if([[SDImageCache sharedImageCache]diskImageExistsWithKey:browseItem.bigImageUrl])
             {
-                [weakSelf longPress:browseCell];
+                [strongSelf longPress:browseCell];
             }
         }];
     }
@@ -261,7 +273,14 @@
 {
     // 移除通知
     [[NSNotificationCenter defaultCenter]removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-    _snapshotView.hidden = NO;
+    if(_snapshotView)
+    {
+        _snapshotView.hidden = NO;
+    }
+    else
+    {
+        self.view.backgroundColor = [UIColor clearColor];
+    }
     // 集合视图背景色设置为透明
     _collectionView.backgroundColor = [UIColor clearColor];
     // 动画结束前不可点击透明背景后的内容
@@ -308,7 +327,8 @@
     _browseActionSheet = nil;
     __weak __typeof(self)weakSelf = self;
     _browseActionSheet = [[JDYBrowseActionSheet alloc]initWithTitleArray:@[@"保存图片",@"复制图片地址"] cancelButtonTitle:@"取消" didSelectedBlock:^(NSInteger index) {
-        [weakSelf browseActionSheetDidSelectedAtIndex:index currentCell:browseCell];
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf browseActionSheetDidSelectedAtIndex:index currentCell:browseCell];
     }];
     [_browseActionSheet showInView:_bgView];
 }
