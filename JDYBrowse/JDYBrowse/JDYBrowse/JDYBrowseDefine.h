@@ -14,5 +14,3 @@
 #import "JDYBrowseViewController.h"
 #import "JDYBrowseModel.h"
 #import "UIView+JDYLayout.h"
-#import "UIView+JDYAutolayout.h"
-#import "Masonry.h"

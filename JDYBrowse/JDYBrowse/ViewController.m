@@ -49,7 +49,7 @@
     flowLayout.itemSize = CGSizeMake(80, 80);
     flowLayout.minimumLineSpacing = 10;
     
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flowLayout];
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, btn.jdyBottom, JDY_SCREEN_WIDTH, JDY_SCREEN_HEIGHT - btn.jdyBottom) collectionViewLayout:flowLayout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = [UIColor clearColor];
@@ -57,10 +57,6 @@
     [_collectionView registerClass:[JDYCollectionViewCell class] forCellWithReuseIdentifier:@"JDYCollectionViewCell"];
     [self.view addSubview:_collectionView];
     
-    [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view).offset(0);
-        make.top.equalTo(self.view).offset(130);
-    }];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section

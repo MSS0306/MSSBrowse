@@ -128,6 +128,8 @@
     _collectionView.dataSource = self;
     _collectionView.pagingEnabled = YES;
     _collectionView.bounces = NO;
+    _collectionView.showsHorizontalScrollIndicator = NO;
+    _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.backgroundColor = [UIColor blackColor];
     [_collectionView registerClass:[JDYBrowseCollectionViewCell class] forCellWithReuseIdentifier:@"JDYBrowserCell"];
     _collectionView.contentOffset = CGPointMake(_currentIndex * (_screenWidth + kBrowseSpace), 0);
@@ -162,7 +164,7 @@
         cell.zoomScrollView.contentSize = CGSizeMake(_screenWidth, _screenHeight);
         cell.zoomScrollView.zoomImageView.contentMode = browseItem.smallImageView.contentMode;
         cell.zoomScrollView.zoomImageView.clipsToBounds = browseItem.smallImageView.clipsToBounds;
-        [cell.loadingView jdy_centerToSuperViewWithSize:CGSizeMake(30, 30)];
+        [cell.loadingView jdy_setFrameInSuperViewCenterWithSize:CGSizeMake(30, 30)];
         CGRect bigImageRect = [_verticalBigRectArray[indexPath.row] CGRectValue];
         if(_currentOrientation != UIDeviceOrientationPortrait)
         {

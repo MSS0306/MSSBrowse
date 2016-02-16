@@ -10,7 +10,6 @@
 
 @interface JDYBrowseLoadingView ()
 
-@property (nonatomic,assign)CGFloat angle;
 @property (nonatomic,strong)NSTimer *timer;
 
 @end
@@ -30,7 +29,7 @@
 - (void)createView
 {
     self.backgroundColor = [UIColor clearColor];
-    self.hidden = YES;
+    self.hidden = NO;
 }
 
 - (void)transAnimation
@@ -46,6 +45,7 @@
 {
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.02f target:self selector:@selector(transAnimation) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    self.transform = CGAffineTransformMakeRotation(self.angle * (M_PI / 180.0f));
     self.hidden = NO;
 }
 
@@ -53,6 +53,7 @@
 {
     [_timer invalidate];
     self.hidden = YES;
+    self.transform = CGAffineTransformMakeRotation(0);
 }
 
 - (void)drawRect:(CGRect)rect

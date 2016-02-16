@@ -12,5 +12,6 @@
 
 - (void)startAnimation;
 - (void)stopAnimation;
+@property (nonatomic,assign)CGFloat angle;
 
 @end

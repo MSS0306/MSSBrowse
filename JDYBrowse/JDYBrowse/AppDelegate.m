@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-#import "JDYNavigationController.h"
 
 @interface AppDelegate ()
 
@@ -22,7 +21,7 @@
     // Override point for customization after application launch.
     
     ViewController *rvc = [[ViewController alloc]init];
-    JDYNavigationController *nav = [[JDYNavigationController alloc]initWithRootViewController:rvc];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:rvc];
     self.window.rootViewController = nav;
     
     self.window.backgroundColor = [UIColor whiteColor];
