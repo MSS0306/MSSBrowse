@@ -1,9 +1,9 @@
 # JDYBrowse
 A simple iOS photo browse like wechat 微信图片浏览
 
-![效果图竖屏](https://raw.githubusercontent.com/JDY0306/JDYBrowse/master/browse1.gif)
+![效果图](https://raw.githubusercontent.com/JDY0306/JDYBrowse/master/browse.gif)
 
-#联系
+# 联系
 iOS开发技术交流群:529043462
 
 # 说明
