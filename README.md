@@ -1,16 +1,18 @@
-# JDYBrowse
+# MSSBrowse
 A simple iOS photo browse like wechat 微信图片浏览
 
-![效果图](https://raw.githubusercontent.com/JDY0306/JDYBrowse/master/browse.gif)
+![效果图](https://raw.githubusercontent.com/MSS0306/MSSBrowse/master/browse.gif)
 
 # 联系
 iOS开发技术交流群:529043462
 
 # 说明
-大图和小图必须为等比例缩放，否则动画会有问题<br/>
-原来1.2版本用Autolayout实现横竖屏遇上了种种问题（其中调用旋转屏幕的私有API存在风险）<br/>
-为了更好的支持主流应用的需求,改成了用view的transform实现浏览页面的横屏,并对部分代码进行了优化<br/>
-原来1.2版本旧代码已删除
+1.支持图片横屏浏览（您不需要开启横屏，因为是利用view的旋转做的横屏浏览效果，完美解决主流应用不支持横屏的问题）<br/>
+2.小图和大图必须为等比缩放的图片，否则坐标转换可能会有问题<br/>
+3.动画浏览图片，类似微信的效果<br/>
+4.长按手势弹框可保存图片，复制图片地址<br/>
+5.支持双击和捏合手势放大和缩小图片<br/>
+6.支持最低版本iOS7.0
 
 # 版本2.0
 1.放弃Autolayout,利用view的transform支持单个浏览页的横屏<br/>
@@ -48,13 +50,14 @@ int i = 0;
 for(i = 0;i < [_smallUrlArray count];i++)
 {
 UIImageView *imageView = [self.view viewWithTag:i + 100];
-JDYBrowseModel *browseItem = [[JDYBrowseModel alloc]init];
+MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
 browseItem.bigImageUrl = bigUrlArray[i];// 大图url地址
 browseItem.smallImageView = imageView;// 小图
 [browseItemArray addObject:browseItem];
 }
-JDYCollectionViewCell *cell = (JDYCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
-JDYBrowseViewController *bvc = [[JDYBrowseViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
+MSSCollectionViewCell *cell = (MSSCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+MSSBrowseViewController *bvc = [[MSSBrowseViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
 [bvc showBrowseViewController];
 }
+
 ```
