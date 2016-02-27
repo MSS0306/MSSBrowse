@@ -42,6 +42,7 @@
 		40D3A4901C81D0F700F969C1 /* mss_browseLoading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D3A48C1C81D0F700F969C1 /* mss_browseLoading@2x.png */; };
 		40D3A4911C81D0F700F969C1 /* mss_browseLoading@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D3A48D1C81D0F700F969C1 /* mss_browseLoading@3x.png */; };
 		40D3A4981C81D1B400F969C1 /* MSSBrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3A4971C81D1B400F969C1 /* MSSBrowseViewController.m */; };
+		40D3A4CA1C81E7A100F969C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D3A4C91C81E7A100F969C1 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,6 +114,7 @@
 		40D3A48D1C81D0F700F969C1 /* mss_browseLoading@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mss_browseLoading@3x.png"; sourceTree = "<group>"; };
 		40D3A4961C81D1B400F969C1 /* MSSBrowseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseViewController.h; sourceTree = "<group>"; };
 		40D3A4971C81D1B400F969C1 /* MSSBrowseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseViewController.m; sourceTree = "<group>"; };
+		40D3A4C91C81E7A100F969C1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 				40D3A3B51C81C49600F969C1 /* Assets.xcassets */,
 				40D3A3B71C81C49600F969C1 /* LaunchScreen.storyboard */,
 				40D3A3BA1C81C49600F969C1 /* Info.plist */,
+				40D3A4C91C81E7A100F969C1 /* Images.xcassets */,
 				40D3A3A91C81C49600F969C1 /* Supporting Files */,
 			);
 			path = MSSBrowse;
@@ -301,6 +304,7 @@
 				40D3A3B91C81C49600F969C1 /* LaunchScreen.storyboard in Resources */,
 				40D3A3B61C81C49600F969C1 /* Assets.xcassets in Resources */,
 				40D3A3B41C81C49600F969C1 /* Main.storyboard in Resources */,
+				40D3A4CA1C81E7A100F969C1 /* Images.xcassets in Resources */,
 				40D3A4901C81D0F700F969C1 /* mss_browseLoading@2x.png in Resources */,
 				40D3A4911C81D0F700F969C1 /* mss_browseLoading@3x.png in Resources */,
 			);
@@ -454,11 +458,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = MSSBrowse/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mss.MSSBrowse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -466,11 +472,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = MSSBrowse/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mss.MSSBrowse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
