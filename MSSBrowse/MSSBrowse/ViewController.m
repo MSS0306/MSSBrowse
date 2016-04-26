@@ -88,19 +88,35 @@
                              @"http://7xjtvh.com1.z0.glb.clouddn.com/browse07.jpg",
                              @"http://7xjtvh.com1.z0.glb.clouddn.com/browse08.jpg",
                              @"http://7xjtvh.com1.z0.glb.clouddn.com/browse09.jpg"];
+    // 加载网络图片
     NSMutableArray *browseItemArray = [[NSMutableArray alloc]init];
     int i = 0;
     for(i = 0;i < [_smallUrlArray count];i++)
     {
         UIImageView *imageView = [self.view viewWithTag:i + 100];
         MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
-        browseItem.bigImageUrl = bigUrlArray[i];// 大图url地址
+        browseItem.bigImageUrl = bigUrlArray[i];// 加载网络图片大图地址
         browseItem.smallImageView = imageView;// 小图
         [browseItemArray addObject:browseItem];
     }
     MSSCollectionViewCell *cell = (MSSCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
-    MSSBrowseViewController *bvc = [[MSSBrowseViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
+    MSSBrowseNetworkViewController *bvc = [[MSSBrowseNetworkViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
     [bvc showBrowseViewController];
+    
+//    // 加载本地图片
+//    NSMutableArray *browseItemArray = [[NSMutableArray alloc]init];
+//    int i = 0;
+//    for(i = 0;i < [_smallUrlArray count];i++)
+//    {
+//        UIImageView *imageView = [self.view viewWithTag:i + 100];
+//        MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
+//        browseItem.bigImage = imageView.image;// 大图赋值
+//        browseItem.smallImageView = imageView;// 小图
+//        [browseItemArray addObject:browseItem];
+//    }
+//    MSSCollectionViewCell *cell = (MSSCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+//    MSSBrowseLocalViewController *bvc = [[MSSBrowseLocalViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
+//    [bvc showBrowseViewController];
 }
 
 

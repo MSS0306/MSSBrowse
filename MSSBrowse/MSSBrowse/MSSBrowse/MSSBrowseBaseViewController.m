@@ -1,25 +1,22 @@
 //
-//  MSSBrowseViewController.m
+//  MSSBrowseBaseViewController.m
 //  MSSBrowse
 //
-//  Created by 于威 on 15/12/23.
-//  Copyright © 2015年 于威. All rights reserved.
+//  Created by 于威 on 16/4/26.
+//  Copyright © 2016年 于威. All rights reserved.
 //
 
-#import "MSSBrowseViewController.h"
-#import "MSSBrowseCollectionViewCell.h"
+#import "MSSBrowseBaseViewController.h"
 #import "UIImageView+WebCache.h"
 #import "SDImageCache.h"
 #import "UIImage+MSSScale.h"
-#import "MSSBrowseDefine.h"
 #import "MSSBrowseRemindView.h"
 #import "MSSBrowseActionSheet.h"
+#import "MSSBrowseDefine.h"
 
-@interface MSSBrowseViewController ()
+@interface MSSBrowseBaseViewController ()
 
-@property (nonatomic,strong)UICollectionView *collectionView;
 @property (nonatomic,strong)NSArray *browseItemArray;
-@property (nonatomic,assign)BOOL isFirstOpen;
 @property (nonatomic,assign)NSInteger currentIndex;
 @property (nonatomic,assign)BOOL isRotate;// 判断是否正在切换横竖屏
 @property (nonatomic,strong)UILabel *countLabel;// 当前图片位置
@@ -35,7 +32,7 @@
 
 @end
 
-@implementation MSSBrowseViewController
+@implementation MSSBrowseBaseViewController
 
 - (instancetype)initWithBrowseItemArray:(NSArray *)browseItemArray currentIndex:(NSInteger)currentIndex
 {
@@ -46,6 +43,11 @@
         _currentIndex = currentIndex;
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 - (void)showBrowseViewController
@@ -152,10 +154,7 @@
 {
     MSSBrowseCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MSSBrowserCell" forIndexPath:indexPath];
     if(cell)
-    {
-        // 停止加载
-        [cell.loadingView stopAnimation];
-        
+    {        
         MSSBrowseModel *browseItem = [_browseItemArray objectAtIndex:indexPath.row];
         // 还原初始缩放比例
         cell.zoomScrollView.frame = CGRectMake(0, 0, _screenWidth, _screenHeight);
@@ -170,19 +169,9 @@
         {
             bigImageRect = [_horizontalBigRectArray[indexPath.row] CGRectValue];
         }
-        // 判断大图是否存在
-        if([[SDImageCache sharedImageCache]diskImageExistsWithKey:browseItem.bigImageUrl])
-        {
-            // 显示大图
-            [self showBigImage:cell.zoomScrollView.zoomImageView browseItem:browseItem rect:bigImageRect];
-        }
-        // 如果大图不存在
-        else
-        {
-            _isFirstOpen = NO;
-            // 加载大图
-            [self loadBigImageWithBrowseItem:browseItem cell:cell rect:bigImageRect];
-        }
+        
+        [self loadBrowseImageWithBrowseItem:browseItem Cell:cell bigImageRect:bigImageRect];
+        
         __weak __typeof(self)weakSelf = self;
         [cell tapClick:^(MSSBrowseCollectionViewCell *browseCell) {
             __strong __typeof(weakSelf)strongSelf = weakSelf;
@@ -199,6 +188,12 @@
     return cell;
 }
 
+// 子类重写此方法
+- (void)loadBrowseImageWithBrowseItem:(MSSBrowseModel *)browseItem Cell:(MSSBrowseCollectionViewCell *)cell bigImageRect:(CGRect)bigImageRect
+{
+
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return _browseItemArray.count;
@@ -207,56 +202,6 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return CGSizeMake(_screenWidth + kBrowseSpace, _screenHeight);
-}
-
-- (void)showBigImage:(UIImageView *)imageView browseItem:(MSSBrowseModel *)browseItem rect:(CGRect)rect
-{
-    // 取消当前请求防止复用问题
-    [imageView sd_cancelCurrentImageLoad];
-    // 如果存在直接显示图片
-    imageView.image = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:browseItem.bigImageUrl];
-    // 第一次打开浏览页需要加载动画
-    if(_isFirstOpen)
-    {
-        _isFirstOpen = NO;
-        imageView.frame = [self getFrameInWindow:browseItem.smallImageView];
-        [UIView animateWithDuration:0.5 animations:^{
-            imageView.frame = rect;
-        }];
-    }
-    else
-    {
-        imageView.frame = rect;
-    }
-}
-
-// 加载大图
-- (void)loadBigImageWithBrowseItem:(MSSBrowseModel *)browseItem cell:(MSSBrowseCollectionViewCell *)cell rect:(CGRect)rect
-{
-    UIImageView *imageView = cell.zoomScrollView.zoomImageView;
-    // 加载圆圈显示
-    [cell.loadingView startAnimation];
-    // 默认为屏幕中间
-    [imageView mss_setFrameInSuperViewCenterWithSize:CGSizeMake(browseItem.smallImageView.mssWidth, browseItem.smallImageView.mssHeight)];
-    [imageView sd_setImageWithURL:[NSURL URLWithString:browseItem.bigImageUrl] placeholderImage:browseItem.smallImageView.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        // 关闭图片浏览view的时候，不需要继续执行小图加载大图动画
-        if(_collectionView.userInteractionEnabled)
-        {
-            // 停止加载
-            [cell.loadingView stopAnimation];
-            if(error)
-            {
-                [self showBrowseRemindViewWithText:@"图片加载失败"];
-            }
-            else
-            {
-                // 图片加载成功
-                [UIView animateWithDuration:0.5 animations:^{
-                    imageView.frame = rect;
-                }];
-            }
-        }
-    }];
 }
 
 #pragma mark UIScrollViewDeletate

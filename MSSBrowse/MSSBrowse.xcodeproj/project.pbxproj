@@ -41,8 +41,10 @@
 		40D3A48B1C81D03800F969C1 /* UIImage+MSSScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3A4851C81D03800F969C1 /* UIImage+MSSScale.m */; };
 		40D3A4901C81D0F700F969C1 /* mss_browseLoading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D3A48C1C81D0F700F969C1 /* mss_browseLoading@2x.png */; };
 		40D3A4911C81D0F700F969C1 /* mss_browseLoading@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D3A48D1C81D0F700F969C1 /* mss_browseLoading@3x.png */; };
-		40D3A4981C81D1B400F969C1 /* MSSBrowseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3A4971C81D1B400F969C1 /* MSSBrowseViewController.m */; };
 		40D3A4CA1C81E7A100F969C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D3A4C91C81E7A100F969C1 /* Images.xcassets */; };
+		40DAF1541CCF7B9300F29AF7 /* MSSBrowseBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DAF1531CCF7B9300F29AF7 /* MSSBrowseBaseViewController.m */; };
+		40DAF1571CCF82B200F29AF7 /* MSSBrowseNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DAF1561CCF82B200F29AF7 /* MSSBrowseNetworkViewController.m */; };
+		40DAF15A1CCF846000F29AF7 /* MSSBrowseLocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DAF1591CCF846000F29AF7 /* MSSBrowseLocalViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,9 +114,13 @@
 		40D3A4851C81D03800F969C1 /* UIImage+MSSScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MSSScale.m"; sourceTree = "<group>"; };
 		40D3A48C1C81D0F700F969C1 /* mss_browseLoading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mss_browseLoading@2x.png"; sourceTree = "<group>"; };
 		40D3A48D1C81D0F700F969C1 /* mss_browseLoading@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mss_browseLoading@3x.png"; sourceTree = "<group>"; };
-		40D3A4961C81D1B400F969C1 /* MSSBrowseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseViewController.h; sourceTree = "<group>"; };
-		40D3A4971C81D1B400F969C1 /* MSSBrowseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseViewController.m; sourceTree = "<group>"; };
 		40D3A4C91C81E7A100F969C1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		40DAF1521CCF7B9300F29AF7 /* MSSBrowseBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseBaseViewController.h; sourceTree = "<group>"; };
+		40DAF1531CCF7B9300F29AF7 /* MSSBrowseBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseBaseViewController.m; sourceTree = "<group>"; };
+		40DAF1551CCF82B200F29AF7 /* MSSBrowseNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseNetworkViewController.h; sourceTree = "<group>"; };
+		40DAF1561CCF82B200F29AF7 /* MSSBrowseNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseNetworkViewController.m; sourceTree = "<group>"; };
+		40DAF1581CCF846000F29AF7 /* MSSBrowseLocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseLocalViewController.h; sourceTree = "<group>"; };
+		40DAF1591CCF846000F29AF7 /* MSSBrowseLocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseLocalViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,8 +223,12 @@
 			isa = PBXGroup;
 			children = (
 				40D3A4701C81CD6800F969C1 /* MSSBrowseDefine.h */,
-				40D3A4961C81D1B400F969C1 /* MSSBrowseViewController.h */,
-				40D3A4971C81D1B400F969C1 /* MSSBrowseViewController.m */,
+				40DAF1521CCF7B9300F29AF7 /* MSSBrowseBaseViewController.h */,
+				40DAF1531CCF7B9300F29AF7 /* MSSBrowseBaseViewController.m */,
+				40DAF1551CCF82B200F29AF7 /* MSSBrowseNetworkViewController.h */,
+				40DAF1561CCF82B200F29AF7 /* MSSBrowseNetworkViewController.m */,
+				40DAF1581CCF846000F29AF7 /* MSSBrowseLocalViewController.h */,
+				40DAF1591CCF846000F29AF7 /* MSSBrowseLocalViewController.m */,
 				40D3A47A1C81D03800F969C1 /* MSSBrowseActionSheet.h */,
 				40D3A47B1C81D03800F969C1 /* MSSBrowseActionSheet.m */,
 				40D3A47C1C81D03800F969C1 /* MSSBrowseActionSheetCell.h */,
@@ -325,6 +335,7 @@
 				40D3A4871C81D03800F969C1 /* MSSBrowseActionSheetCell.m in Sources */,
 				40D3A4621C81CA0700F969C1 /* SDWebImageCompat.m in Sources */,
 				40D3A48B1C81D03800F969C1 /* UIImage+MSSScale.m in Sources */,
+				40DAF15A1CCF846000F29AF7 /* MSSBrowseLocalViewController.m in Sources */,
 				40D3A4691C81CA0700F969C1 /* UIImage+GIF.m in Sources */,
 				40D3A4881C81D03800F969C1 /* MSSBrowseLoadingView.m in Sources */,
 				40D3A4671C81CA0700F969C1 /* SDWebImagePrefetcher.m in Sources */,
@@ -335,15 +346,16 @@
 				40D3A46B1C81CA0700F969C1 /* UIImage+WebP.m in Sources */,
 				40D3A46D1C81CA0700F969C1 /* UIImageView+WebCache.m in Sources */,
 				40D3A4861C81D03800F969C1 /* MSSBrowseActionSheet.m in Sources */,
+				40DAF1571CCF82B200F29AF7 /* MSSBrowseNetworkViewController.m in Sources */,
 				40D3A4641C81CA0700F969C1 /* SDWebImageDownloader.m in Sources */,
 				40D3A46E1C81CA0700F969C1 /* UIView+WebCacheOperation.m in Sources */,
 				40D3A4791C81CE2600F969C1 /* MSSBrowseModel.m in Sources */,
 				40D3A4891C81D03800F969C1 /* MSSBrowseRemindView.m in Sources */,
-				40D3A4981C81D1B400F969C1 /* MSSBrowseViewController.m in Sources */,
 				40D3A4681C81CA0700F969C1 /* UIButton+WebCache.m in Sources */,
 				40D3A45F1C81CA0700F969C1 /* MKAnnotationView+WebCache.m in Sources */,
 				40D3A4601C81CA0700F969C1 /* NSData+ImageContentType.m in Sources */,
 				40D3A3AB1C81C49600F969C1 /* main.m in Sources */,
+				40DAF1541CCF7B9300F29AF7 /* MSSBrowseBaseViewController.m in Sources */,
 				40D3A4661C81CA0700F969C1 /* SDWebImageManager.m in Sources */,
 				40D3A4631C81CA0700F969C1 /* SDWebImageDecoder.m in Sources */,
 				40D3A4611C81CA0700F969C1 /* SDImageCache.m in Sources */,

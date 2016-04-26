@@ -11,6 +11,7 @@
 #define MSS_SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 #define MSS_SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 
-#import "MSSBrowseViewController.h"
+#import "MSSBrowseNetworkViewController.h"
+#import "MSSBrowseLocalViewController.h"
 #import "MSSBrowseModel.h"
 #import "UIView+MSSLayout.h"
