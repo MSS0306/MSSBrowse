@@ -35,13 +35,13 @@
 		40D3A4791C81CE2600F969C1 /* MSSBrowseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3A4771C81CE2600F969C1 /* MSSBrowseModel.m */; };
 		40D3A4861C81D03800F969C1 /* MSSBrowseActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3A47B1C81D03800F969C1 /* MSSBrowseActionSheet.m */; };
 		40D3A4871C81D03800F969C1 /* MSSBrowseActionSheetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3A47D1C81D03800F969C1 /* MSSBrowseActionSheetCell.m */; };
-		40D3A4881C81D03800F969C1 /* MSSBrowseLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3A47F1C81D03800F969C1 /* MSSBrowseLoadingView.m */; };
 		40D3A4891C81D03800F969C1 /* MSSBrowseRemindView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3A4811C81D03800F969C1 /* MSSBrowseRemindView.m */; };
 		40D3A48A1C81D03800F969C1 /* MSSBrowseZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3A4831C81D03800F969C1 /* MSSBrowseZoomScrollView.m */; };
 		40D3A48B1C81D03800F969C1 /* UIImage+MSSScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D3A4851C81D03800F969C1 /* UIImage+MSSScale.m */; };
 		40D3A4901C81D0F700F969C1 /* mss_browseLoading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D3A48C1C81D0F700F969C1 /* mss_browseLoading@2x.png */; };
 		40D3A4911C81D0F700F969C1 /* mss_browseLoading@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D3A48D1C81D0F700F969C1 /* mss_browseLoading@3x.png */; };
 		40D3A4CA1C81E7A100F969C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40D3A4C91C81E7A100F969C1 /* Images.xcassets */; };
+		40D824391CD4474E00951A52 /* MSSBrowseLoadingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40D824381CD4474E00951A52 /* MSSBrowseLoadingImageView.m */; };
 		40DAF1541CCF7B9300F29AF7 /* MSSBrowseBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DAF1531CCF7B9300F29AF7 /* MSSBrowseBaseViewController.m */; };
 		40DAF1571CCF82B200F29AF7 /* MSSBrowseNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DAF1561CCF82B200F29AF7 /* MSSBrowseNetworkViewController.m */; };
 		40DAF15A1CCF846000F29AF7 /* MSSBrowseLocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DAF1591CCF846000F29AF7 /* MSSBrowseLocalViewController.m */; };
@@ -104,8 +104,6 @@
 		40D3A47B1C81D03800F969C1 /* MSSBrowseActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseActionSheet.m; sourceTree = "<group>"; };
 		40D3A47C1C81D03800F969C1 /* MSSBrowseActionSheetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseActionSheetCell.h; sourceTree = "<group>"; };
 		40D3A47D1C81D03800F969C1 /* MSSBrowseActionSheetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseActionSheetCell.m; sourceTree = "<group>"; };
-		40D3A47E1C81D03800F969C1 /* MSSBrowseLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseLoadingView.h; sourceTree = "<group>"; };
-		40D3A47F1C81D03800F969C1 /* MSSBrowseLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseLoadingView.m; sourceTree = "<group>"; };
 		40D3A4801C81D03800F969C1 /* MSSBrowseRemindView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseRemindView.h; sourceTree = "<group>"; };
 		40D3A4811C81D03800F969C1 /* MSSBrowseRemindView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseRemindView.m; sourceTree = "<group>"; };
 		40D3A4821C81D03800F969C1 /* MSSBrowseZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseZoomScrollView.h; sourceTree = "<group>"; };
@@ -115,6 +113,8 @@
 		40D3A48C1C81D0F700F969C1 /* mss_browseLoading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mss_browseLoading@2x.png"; sourceTree = "<group>"; };
 		40D3A48D1C81D0F700F969C1 /* mss_browseLoading@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mss_browseLoading@3x.png"; sourceTree = "<group>"; };
 		40D3A4C91C81E7A100F969C1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		40D824371CD4474E00951A52 /* MSSBrowseLoadingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseLoadingImageView.h; sourceTree = "<group>"; };
+		40D824381CD4474E00951A52 /* MSSBrowseLoadingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseLoadingImageView.m; sourceTree = "<group>"; };
 		40DAF1521CCF7B9300F29AF7 /* MSSBrowseBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseBaseViewController.h; sourceTree = "<group>"; };
 		40DAF1531CCF7B9300F29AF7 /* MSSBrowseBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseBaseViewController.m; sourceTree = "<group>"; };
 		40DAF1551CCF82B200F29AF7 /* MSSBrowseNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseNetworkViewController.h; sourceTree = "<group>"; };
@@ -233,8 +233,8 @@
 				40D3A47B1C81D03800F969C1 /* MSSBrowseActionSheet.m */,
 				40D3A47C1C81D03800F969C1 /* MSSBrowseActionSheetCell.h */,
 				40D3A47D1C81D03800F969C1 /* MSSBrowseActionSheetCell.m */,
-				40D3A47E1C81D03800F969C1 /* MSSBrowseLoadingView.h */,
-				40D3A47F1C81D03800F969C1 /* MSSBrowseLoadingView.m */,
+				40D824371CD4474E00951A52 /* MSSBrowseLoadingImageView.h */,
+				40D824381CD4474E00951A52 /* MSSBrowseLoadingImageView.m */,
 				40D3A4801C81D03800F969C1 /* MSSBrowseRemindView.h */,
 				40D3A4811C81D03800F969C1 /* MSSBrowseRemindView.m */,
 				40D3A4821C81D03800F969C1 /* MSSBrowseZoomScrollView.h */,
@@ -337,7 +337,6 @@
 				40D3A48B1C81D03800F969C1 /* UIImage+MSSScale.m in Sources */,
 				40DAF15A1CCF846000F29AF7 /* MSSBrowseLocalViewController.m in Sources */,
 				40D3A4691C81CA0700F969C1 /* UIImage+GIF.m in Sources */,
-				40D3A4881C81D03800F969C1 /* MSSBrowseLoadingView.m in Sources */,
 				40D3A4671C81CA0700F969C1 /* SDWebImagePrefetcher.m in Sources */,
 				40D3A3B11C81C49600F969C1 /* ViewController.m in Sources */,
 				40D3A4781C81CE2600F969C1 /* MSSBrowseCollectionViewCell.m in Sources */,
@@ -355,6 +354,7 @@
 				40D3A45F1C81CA0700F969C1 /* MKAnnotationView+WebCache.m in Sources */,
 				40D3A4601C81CA0700F969C1 /* NSData+ImageContentType.m in Sources */,
 				40D3A3AB1C81C49600F969C1 /* main.m in Sources */,
+				40D824391CD4474E00951A52 /* MSSBrowseLoadingImageView.m in Sources */,
 				40DAF1541CCF7B9300F29AF7 /* MSSBrowseBaseViewController.m in Sources */,
 				40D3A4661C81CA0700F969C1 /* SDWebImageManager.m in Sources */,
 				40D3A4631C81CA0700F969C1 /* SDWebImageDecoder.m in Sources */,
@@ -401,6 +401,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: 631360523@qq.com (6Q44RA5L4L)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -423,6 +424,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -445,6 +447,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: 631360523@qq.com (6Q44RA5L4L)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -460,6 +463,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -471,11 +475,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MSSBrowse/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mss.MSSBrowse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -485,11 +492,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MSSBrowse/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mss.MSSBrowse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

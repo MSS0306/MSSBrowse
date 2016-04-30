@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MSSBrowseLoadingView.h"
+#import "MSSBrowseLoadingImageView.h"
 #import "MSSBrowseZoomScrollView.h"
 
 @class MSSBrowseCollectionViewCell;
@@ -18,7 +18,7 @@ typedef void(^MSSBrowseCollectionViewCellLongPressBlock)(MSSBrowseCollectionView
 @interface MSSBrowseCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic,strong)MSSBrowseZoomScrollView *zoomScrollView; // 滚动视图
-@property (nonatomic,strong)MSSBrowseLoadingView *loadingView; // 加载视图
+@property (nonatomic,strong)MSSBrowseLoadingImageView *loadingView; // 加载视图
 
 - (void)tapClick:(MSSBrowseCollectionViewCellTapBlock)tapBlock;
 - (void)longPress:(MSSBrowseCollectionViewCellLongPressBlock)longPressBlock;

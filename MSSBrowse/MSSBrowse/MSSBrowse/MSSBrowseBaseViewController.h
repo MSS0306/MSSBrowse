@@ -14,6 +14,8 @@
 
 @property (nonatomic,strong)UICollectionView *collectionView;
 @property (nonatomic,assign)BOOL isFirstOpen;
+@property (nonatomic,assign)CGFloat screenWidth;
+@property (nonatomic,assign)CGFloat screenHeight;
 
 - (instancetype)initWithBrowseItemArray:(NSArray *)browseItemArray currentIndex:(NSInteger)currentIndex;
 - (void)showBrowseViewController;

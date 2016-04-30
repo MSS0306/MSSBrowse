@@ -38,7 +38,7 @@
     }];
     [self.contentView addSubview:_zoomScrollView];
     
-    _loadingView = [[MSSBrowseLoadingView alloc]init];
+    _loadingView = [[MSSBrowseLoadingImageView alloc]init];
     [_zoomScrollView addSubview:_loadingView];
     
     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressGesture:)];

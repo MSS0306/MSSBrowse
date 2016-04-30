@@ -10,6 +10,7 @@
 #import "SDImageCache.h"
 #import "UIImageView+WebCache.h"
 #import "UIView+MSSLayout.h"
+#import "UIImage+MSSScale.h"
 
 @implementation MSSBrowseNetworkViewController
 
@@ -38,18 +39,20 @@
     [imageView sd_cancelCurrentImageLoad];
     // 如果存在直接显示图片
     imageView.image = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:browseItem.bigImageUrl];
+    // 小图不存在时需要大图加载完成后重新计算坐标
+    CGRect bigRect = [self getBigImageRectIfIsEmptyRect:rect bigImage:imageView.image];
     // 第一次打开浏览页需要加载动画
     if(self.isFirstOpen)
     {
         self.isFirstOpen = NO;
         imageView.frame = [self getFrameInWindow:browseItem.smallImageView];
         [UIView animateWithDuration:0.5 animations:^{
-            imageView.frame = rect;
+            imageView.frame = bigRect;
         }];
     }
     else
     {
-        imageView.frame = rect;
+        imageView.frame = bigRect;
     }
 }
 
@@ -73,13 +76,25 @@
             }
             else
             {
+                // 小图不存在时需要大图加载完成后重新计算坐标
+                CGRect bigRect = [self getBigImageRectIfIsEmptyRect:rect bigImage:image];
                 // 图片加载成功
                 [UIView animateWithDuration:0.5 animations:^{
-                    imageView.frame = rect;
+                    imageView.frame = bigRect;
                 }];
             }
         }
     }];
+}
+
+// 小图不存在时需要大图加载完成后重新计算坐标
+- (CGRect)getBigImageRectIfIsEmptyRect:(CGRect)rect bigImage:(UIImage *)bigImage
+{
+    if(CGRectIsEmpty(rect))
+    {
+        return [bigImage mss_getBigImageRectSizeWithScreenWidth:self.screenWidth screenHeight:self.screenHeight];
+    }
+    return rect;
 }
 
 @end

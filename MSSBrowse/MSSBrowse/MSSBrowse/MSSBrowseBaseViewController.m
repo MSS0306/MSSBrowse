@@ -20,8 +20,6 @@
 @property (nonatomic,assign)NSInteger currentIndex;
 @property (nonatomic,assign)BOOL isRotate;// 判断是否正在切换横竖屏
 @property (nonatomic,strong)UILabel *countLabel;// 当前图片位置
-@property (nonatomic,assign)CGFloat screenWidth;
-@property (nonatomic,assign)CGFloat screenHeight;
 @property (nonatomic,strong)UIView *snapshotView;
 @property (nonatomic,strong)NSMutableArray *verticalBigRectArray;
 @property (nonatomic,strong)NSMutableArray *horizontalBigRectArray;
@@ -83,11 +81,15 @@
     _horizontalBigRectArray = [[NSMutableArray alloc]init];
     for (MSSBrowseModel *browseItem in _browseItemArray)
     {
-        CGRect verticalRect = [browseItem.smallImageView.image mss_getBigImageRectSizeWithScreenWidth:MSS_SCREEN_WIDTH screenHeight:MSS_SCREEN_HEIGHT];
+        CGRect verticalRect = CGRectZero;
+        CGRect horizontalRect = CGRectZero;
+        if(browseItem.smallImageView)
+        {
+            verticalRect = [browseItem.smallImageView.image mss_getBigImageRectSizeWithScreenWidth:MSS_SCREEN_WIDTH screenHeight:MSS_SCREEN_HEIGHT];
+            horizontalRect = [browseItem.smallImageView.image mss_getBigImageRectSizeWithScreenWidth:MSS_SCREEN_HEIGHT screenHeight:MSS_SCREEN_WIDTH];
+        }
         NSValue *verticalValue = [NSValue valueWithCGRect:verticalRect];
         [_verticalBigRectArray addObject:verticalValue];
-        
-        CGRect horizontalRect = [browseItem.smallImageView.image mss_getBigImageRectSizeWithScreenWidth:MSS_SCREEN_HEIGHT screenHeight:MSS_SCREEN_WIDTH];
         NSValue *horizontalValue = [NSValue valueWithCGRect:horizontalRect];
         [_horizontalBigRectArray addObject:horizontalValue];
     }
@@ -169,7 +171,6 @@
         {
             bigImageRect = [_horizontalBigRectArray[indexPath.row] CGRectValue];
         }
-        
         [self loadBrowseImageWithBrowseItem:browseItem Cell:cell bigImageRect:bigImageRect];
         
         __weak __typeof(self)weakSelf = self;
