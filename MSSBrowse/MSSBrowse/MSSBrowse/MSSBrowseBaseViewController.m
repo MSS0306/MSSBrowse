@@ -247,26 +247,42 @@
     NSIndexPath *indexPath = [_collectionView indexPathForCell:browseCell];
     browseCell.zoomScrollView.zoomScale = 1.0f;
     MSSBrowseModel *browseItem = _browseItemArray[indexPath.row];
-    CGRect rect = [self getFrameInWindow:browseItem.smallImageView];
-    CGAffineTransform transform = CGAffineTransformMakeRotation(0);
-    if(_currentOrientation == UIDeviceOrientationLandscapeLeft)
+    /*
+     建议小图列表的collectionView尽量不要复用，因为当小图的列表collectionview复用时，传进来的BrowseItem数组只有当前显示cell的smallImageView，在当前屏幕外的cell上的小图由于复用关系实际是没有的，所以只能有简单的渐变动画
+     */
+    if(browseItem.smallImageView)
     {
-        transform = CGAffineTransformMakeRotation(- M_PI / 2);
-        rect = CGRectMake(rect.origin.y, MSS_SCREEN_WIDTH - rect.size.width - rect.origin.x, rect.size.height, rect.size.width);
-    }
-    else if(_currentOrientation == UIDeviceOrientationLandscapeRight)
-    {
-        transform = CGAffineTransformMakeRotation(M_PI / 2);
-        rect = CGRectMake(MSS_SCREEN_HEIGHT - rect.size.height - rect.origin.y, rect.origin.x, rect.size.height, rect.size.width);
-    }
-    [UIView animateWithDuration:0.5 animations:^{
-        browseCell.zoomScrollView.zoomImageView.transform = transform;
-        browseCell.zoomScrollView.zoomImageView.frame = rect;
-    } completion:^(BOOL finished) {
-        [self dismissViewControllerAnimated:NO completion:^{
-            
+        CGRect rect = [self getFrameInWindow:browseItem.smallImageView];
+        CGAffineTransform transform = CGAffineTransformMakeRotation(0);
+        if(_currentOrientation == UIDeviceOrientationLandscapeLeft)
+        {
+            transform = CGAffineTransformMakeRotation(- M_PI / 2);
+            rect = CGRectMake(rect.origin.y, MSS_SCREEN_WIDTH - rect.size.width - rect.origin.x, rect.size.height, rect.size.width);
+        }
+        else if(_currentOrientation == UIDeviceOrientationLandscapeRight)
+        {
+            transform = CGAffineTransformMakeRotation(M_PI / 2);
+            rect = CGRectMake(MSS_SCREEN_HEIGHT - rect.size.height - rect.origin.y, rect.origin.x, rect.size.height, rect.size.width);
+        }
+        [UIView animateWithDuration:0.5 animations:^{
+            browseCell.zoomScrollView.zoomImageView.transform = transform;
+            browseCell.zoomScrollView.zoomImageView.frame = rect;
+        } completion:^(BOOL finished) {
+            [self dismissViewControllerAnimated:NO completion:^{
+                
+            }];
         }];
-    }];
+    }
+    else
+    {
+        [UIView animateWithDuration:0.1 animations:^{
+            self.view.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [self dismissViewControllerAnimated:NO completion:^{
+                
+            }];
+        }];
+    }
 }
 
 - (void)longPress:(MSSBrowseCollectionViewCell *)browseCell
