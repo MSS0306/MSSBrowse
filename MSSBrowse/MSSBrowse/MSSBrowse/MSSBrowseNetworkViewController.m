@@ -39,7 +39,7 @@
     [imageView sd_cancelCurrentImageLoad];
     // 如果存在直接显示图片
     imageView.image = [[SDImageCache sharedImageCache]imageFromDiskCacheForKey:browseItem.bigImageUrl];
-    // 小图不存在时需要大图加载完成后重新计算坐标
+    // 当大图frame为空时，需要大图加载完成后重新计算坐标
     CGRect bigRect = [self getBigImageRectIfIsEmptyRect:rect bigImage:imageView.image];
     // 第一次打开浏览页需要加载动画
     if(self.isFirstOpen)
@@ -76,7 +76,7 @@
             }
             else
             {
-                // 小图不存在时需要大图加载完成后重新计算坐标
+                // 当大图frame为空时，需要大图加载完成后重新计算坐标
                 CGRect bigRect = [self getBigImageRectIfIsEmptyRect:rect bigImage:image];
                 // 图片加载成功
                 [UIView animateWithDuration:0.5 animations:^{
@@ -87,7 +87,7 @@
     }];
 }
 
-// 小图不存在时需要大图加载完成后重新计算坐标
+// 当大图frame为空时，需要大图加载完成后重新计算坐标
 - (CGRect)getBigImageRectIfIsEmptyRect:(CGRect)rect bigImage:(UIImage *)bigImage
 {
     if(CGRectIsEmpty(rect))

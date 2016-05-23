@@ -39,6 +39,13 @@
     {
         _browseItemArray = browseItemArray;
         _currentIndex = currentIndex;
+        _isEqualRatio = YES;
+        _isFirstOpen = YES;
+        _screenWidth = MSS_SCREEN_WIDTH;
+        _screenHeight = MSS_SCREEN_HEIGHT;
+        _currentOrientation = UIDeviceOrientationPortrait;
+        _verticalBigRectArray = [[NSMutableArray alloc]init];
+        _horizontalBigRectArray = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -73,20 +80,18 @@
 
 - (void)initData
 {
-    _isFirstOpen = YES;
-    _screenWidth = MSS_SCREEN_WIDTH;
-    _screenHeight = MSS_SCREEN_HEIGHT;
-    _currentOrientation = UIDeviceOrientationPortrait;
-    _verticalBigRectArray = [[NSMutableArray alloc]init];
-    _horizontalBigRectArray = [[NSMutableArray alloc]init];
     for (MSSBrowseModel *browseItem in _browseItemArray)
     {
         CGRect verticalRect = CGRectZero;
         CGRect horizontalRect = CGRectZero;
-        if(browseItem.smallImageView)
+        // 等比可根据小图宽高计算大图宽高
+        if(_isEqualRatio)
         {
-            verticalRect = [browseItem.smallImageView.image mss_getBigImageRectSizeWithScreenWidth:MSS_SCREEN_WIDTH screenHeight:MSS_SCREEN_HEIGHT];
-            horizontalRect = [browseItem.smallImageView.image mss_getBigImageRectSizeWithScreenWidth:MSS_SCREEN_HEIGHT screenHeight:MSS_SCREEN_WIDTH];
+            if(browseItem.smallImageView)
+            {
+                verticalRect = [browseItem.smallImageView.image mss_getBigImageRectSizeWithScreenWidth:MSS_SCREEN_WIDTH screenHeight:MSS_SCREEN_HEIGHT];
+                horizontalRect = [browseItem.smallImageView.image mss_getBigImageRectSizeWithScreenWidth:MSS_SCREEN_HEIGHT screenHeight:MSS_SCREEN_WIDTH];
+            }
         }
         NSValue *verticalValue = [NSValue valueWithCGRect:verticalRect];
         [_verticalBigRectArray addObject:verticalValue];

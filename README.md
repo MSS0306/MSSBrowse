@@ -8,7 +8,7 @@ iOS开发技术交流群:529043462
 
 # 说明
 1.支持图片横屏浏览（您不需要开启横屏，因为是利用view的旋转做的横屏浏览效果，完美解决主流应用不支持横屏的问题）<br/>
-2.小图和大图必须为等比缩放的图片，否则坐标转换可能会有问题<br/>
+2.强烈建议小图和大图为等比缩放的图片<br/>
 3.动画浏览图片，类似微信的效果<br/>
 4.长按手势弹框可保存图片，复制图片地址<br/>
 5.支持双击和捏合手势放大和缩小图片<br/>
@@ -66,6 +66,7 @@ browseItem.smallImageView = imageView;// 小图
 }
 MSSCollectionViewCell *cell = (MSSCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
 MSSBrowseNetworkViewController *bvc = [[MSSBrowseNetworkViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
+// bvc.isEqualRatio = NO;// 大图小图不等比时需要设置这个属性（建议等比）
 [bvc showBrowseViewController];
 }
 ```
@@ -81,6 +82,7 @@ for(i = 0;i < [_smallUrlArray count];i++)
 {
 UIImageView *imageView = [self.view viewWithTag:i + 100];
 MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
+// browseItem.bigImageLocalPath 建议传本地图片的路径来减少内存使用
 browseItem.bigImage = imageView.image;// 大图赋值
 browseItem.smallImageView = imageView;// 小图
 [browseItemArray addObject:browseItem];

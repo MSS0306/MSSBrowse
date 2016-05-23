@@ -101,6 +101,7 @@
     }
     MSSCollectionViewCell *cell = (MSSCollectionViewCell *)[_collectionView cellForItemAtIndexPath:indexPath];
     MSSBrowseNetworkViewController *bvc = [[MSSBrowseNetworkViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.imageView.tag - 100];
+//    bvc.isEqualRatio = NO;// 大图小图不等比时需要设置这个属性（建议等比）
     [bvc showBrowseViewController];
     
 //    // 加载本地图片
@@ -110,6 +111,7 @@
 //    {
 //        UIImageView *imageView = [self.view viewWithTag:i + 100];
 //        MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
+////        browseItem.bigImageLocalPath 建议传本地图片的路径来减少内存使用
 //        browseItem.bigImage = imageView.image;// 大图赋值
 //        browseItem.smallImageView = imageView;// 小图
 //        [browseItemArray addObject:browseItem];

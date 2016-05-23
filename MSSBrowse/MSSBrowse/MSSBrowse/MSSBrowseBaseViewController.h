@@ -12,6 +12,8 @@
 
 @interface MSSBrowseBaseViewController : UIViewController<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIViewControllerTransitioningDelegate>
 
+@property (nonatomic,assign)BOOL isEqualRatio;// 大小图是否等比（默认为等比）
+
 @property (nonatomic,strong)UICollectionView *collectionView;
 @property (nonatomic,assign)BOOL isFirstOpen;
 @property (nonatomic,assign)CGFloat screenWidth;
