@@ -45,7 +45,6 @@
 		40DAF1541CCF7B9300F29AF7 /* MSSBrowseBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DAF1531CCF7B9300F29AF7 /* MSSBrowseBaseViewController.m */; };
 		40DAF1571CCF82B200F29AF7 /* MSSBrowseNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DAF1561CCF82B200F29AF7 /* MSSBrowseNetworkViewController.m */; };
 		40DAF15A1CCF846000F29AF7 /* MSSBrowseLocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40DAF1591CCF846000F29AF7 /* MSSBrowseLocalViewController.m */; };
-		69242D421CF2B25B00147D63 /* browse09.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 69242D411CF2B25B00147D63 /* browse09.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -122,7 +121,6 @@
 		40DAF1561CCF82B200F29AF7 /* MSSBrowseNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseNetworkViewController.m; sourceTree = "<group>"; };
 		40DAF1581CCF846000F29AF7 /* MSSBrowseLocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseLocalViewController.h; sourceTree = "<group>"; };
 		40DAF1591CCF846000F29AF7 /* MSSBrowseLocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseLocalViewController.m; sourceTree = "<group>"; };
-		69242D411CF2B25B00147D63 /* browse09.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = browse09.jpg; path = ../../../browse09.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,7 +153,6 @@
 		40D3A3A81C81C49600F969C1 /* MSSBrowse */ = {
 			isa = PBXGroup;
 			children = (
-				69242D411CF2B25B00147D63 /* browse09.jpg */,
 				40D3A46F1C81CD6800F969C1 /* MSSBrowse */,
 				40D3A43D1C81CA0700F969C1 /* SDWebImage */,
 				40D3A3AC1C81C49600F969C1 /* AppDelegate.h */,
@@ -314,7 +311,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69242D421CF2B25B00147D63 /* browse09.jpg in Resources */,
 				40D3A3B91C81C49600F969C1 /* LaunchScreen.storyboard in Resources */,
 				40D3A3B61C81C49600F969C1 /* Assets.xcassets in Resources */,
 				40D3A3B41C81C49600F969C1 /* Main.storyboard in Resources */,
