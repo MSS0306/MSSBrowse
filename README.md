@@ -3,9 +3,6 @@ A simple iOS photo browse like wechat 微信图片浏览
 
 ![效果图](https://raw.githubusercontent.com/MSS0306/MSSBrowse/master/browse.gif)
 
-# 联系
-iOS开发技术交流群:529043462
-
 # 说明
 1.支持图片横屏浏览（您不需要开启横屏，因为是利用view的旋转做的横屏浏览效果，完美解决主流应用不支持横屏的问题）<br/>
 2.强烈建议小图和大图为等比缩放的图片<br/>
